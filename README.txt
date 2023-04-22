@@ -1,4 +1,4 @@
-Iniico de trabajo: 16/04/2023
+Inico de trabajo: 16/04/2023
 
 Integrantes: 
 Nicolas Cuellar Molina A00394970
