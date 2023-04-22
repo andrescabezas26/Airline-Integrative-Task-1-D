@@ -10,6 +10,12 @@ import java.io.IOException;
  */
 public class Controller {
 
+    private Plane plane;
+
+    public Controller() {
+        plane = new Plane(null, 0, 0, 0);
+    }
+
     public void loadData() {
         File projectDir = new File(System.getProperty("user.dir"));
 
@@ -21,6 +27,10 @@ public class Controller {
             lector = new BufferedReader(archivo);
 
             String linea = lector.readLine();
+            String infoPlane = "";
+            while (!linea.equals("Passengers")) {
+                infoPlane += linea;
+            }
             while (linea != null) {
                 // procesa la línea leída
                 System.out.println(linea);
@@ -37,4 +47,5 @@ public class Controller {
             }
         }
     }
+
 }

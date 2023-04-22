@@ -1,14 +1,10 @@
-Datos del avión:
+Avianca
 10::Número de filas del avión
 3::Numero de filas de primera clase
 6::Número de sillas por fila
-
-
 Id::Nombre::Fila::Silla::PrimeraClase::Embarazada::TerceraEdad::MillasAcumuladas
 String::String::int::String::boolean::boolean::boolean::int
-
-Passengers:
-
+Passengers
 KLY225::Liam Brown::1::A::true::false::false::48
 DRZ456::Emma Wilson::1::B::true::false::false::73
 BJT900::Noah Davis::1::C::false::false::false::62

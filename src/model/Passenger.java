@@ -9,9 +9,10 @@ public class Passenger {
     private boolean firstClass;
     private boolean pregnant;
     private boolean oldAge;
+    private int accumulatedMiles;
 
     public Passenger(String name, String id, int row, String chair, boolean firstClass, boolean pregnant,
-            boolean oldAge) {
+            boolean oldAge, int accumulatedMiles) {
         this.name = name;
         this.id = id;
         this.row = row;
@@ -19,6 +20,7 @@ public class Passenger {
         this.firstClass = firstClass;
         this.pregnant = pregnant;
         this.oldAge = oldAge;
+        this.accumulatedMiles = accumulatedMiles;
     }
 
     public String getName() {
@@ -87,6 +89,20 @@ public class Passenger {
 
     public void setOldAge(boolean oldAge) {
         this.oldAge = oldAge;
+    }
+
+    /**
+     * @return int return the accumulatedMiles
+     */
+    public int getAccumulatedMiles() {
+        return accumulatedMiles;
+    }
+
+    /**
+     * @param accumulatedMiles the accumulatedMiles to set
+     */
+    public void setAccumulatedMiles(int accumulatedMiles) {
+        this.accumulatedMiles = accumulatedMiles;
     }
 
 }

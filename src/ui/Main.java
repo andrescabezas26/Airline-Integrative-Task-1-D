@@ -34,11 +34,11 @@ public class Main {
         int option = 0;
         System.out.println("<<<<< Welcome to Integrative Airline >>>>>");
         System.out.println(
-                "1. Ingresar un pais\n" +
-                        "2. Mostrar medalleria\n" +
-                        "3. Mostrar total de medallas\n" +
-                        "4. Mostrar paises\n" +
-                        "0. Salir y guardar\n");
+                "1. Load data of passengers\n" +
+                        "2. \n" +
+                        "3. \n" +
+                        "4. \n" +
+                        "0. Salir\n");
 
         option = validateIntegerOption();
 
@@ -53,6 +53,7 @@ public class Main {
     public void executeOption(int option) {
         switch (option) {
             case 1:
+                controller.loadData();
                 break;
             case 2:
                 break;
