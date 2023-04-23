@@ -33,13 +33,13 @@ public class Main {
     public int getOptionShowMenu() {
         int option = -1;
         while (option == -1) {
-            System.out.println("<<<<< Welcome to Integrative Airline >>>>>");
+            System.out.println("\n<<<<< Welcome to Integrative Airline >>>>>");
             System.out.println(
                     "1. Load data of passengers\n" +
-                            "2. \n" +
+                            "2. See list of loaded passengers \n" +
                             "3. \n" +
                             "4. \n" +
-                            "0. Salir\n");
+                            "0. Exit\n");
 
             option = validateIntegerOption();
         }
@@ -55,10 +55,14 @@ public class Main {
     public void executeOption(int option) {
         switch (option) {
             case 1:
-                controller.loadData();
-                System.out.println("Passengers Data loaded");
+                String msj = controller.loadData();
+                System.out.println("<<PASSENGERS DATA LOADED>>");
+                System.out.println(msj);
+
                 break;
             case 2:
+                System.out.println(controller.printListPassengers());
+
                 break;
             case 3:
                 break;

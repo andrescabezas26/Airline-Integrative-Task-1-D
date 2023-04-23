@@ -1,5 +1,7 @@
 package model;
 
+import dataStructures.*;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -16,11 +18,34 @@ public class Controller {
 
     }
 
-    public void loadData() {
+    public String printListPassengers() {
+
+        String msj = "";
+
+        if (plane == null) {
+            return "No loaded data";
+        }
+
+        Node<String, Passenger>[] table = plane.getPassengersInfo().getTable();
+        for (int i = 0; i < plane.getPassengersInfo().getSizeTable(); i++) {
+            Node<String, Passenger> current = table[i];
+            while (current != null) {
+                msj += "<<Passenger>> \n" + current.getValue().toString() + "\n\n";
+                current = current.getNext();
+            }
+
+        }
+
+        return msj;
+
+    }
+
+    public String loadData() {
         File projectDir = new File(System.getProperty("user.dir"));
 
         FileReader archivo = null;
         BufferedReader lector = null;
+        String msj = "No se ha podido cargar la informacion";
 
         try {
             archivo = new FileReader(projectDir + "/data/data.txt");
@@ -33,7 +58,8 @@ public class Controller {
                 infoPlane += linea + "\n";
                 linea = lector.readLine();
             }
-            createPlane(infoPlane);
+            msj = createPlane(infoPlane);
+
             while (linea != null) {
                 passengersInfo += linea + "\n";
                 linea = lector.readLine();
@@ -49,9 +75,11 @@ public class Controller {
                 ex.printStackTrace();
             }
         }
+
+        return msj;
     }
 
-    public void createPlane(String planeInfo) {
+    public String createPlane(String planeInfo) {
         String[] lines = planeInfo.split("\n");
         int[] numbers = new int[4];
         for (int i = 1; i < lines.length - 2; i++) {
@@ -59,6 +87,12 @@ public class Controller {
             numbers[i] = Integer.parseInt(info[0]);
         }
         plane = new Plane(lines[0], numbers[1], numbers[2], numbers[3]);
+
+        String msj = String.format(
+                "The plane information is: \nAirline: %s \nNumber of rows: %s \nNumber of first class rows: %s \nNumber of chairs per row: %s",
+                plane.getAirline(), plane.getNumRows(), plane.getNumFirstClass(), plane.getChairsForRow());
+
+        return msj;
     }
 
     public void addPassengersToHashtable(String passengersInfo) {

@@ -78,4 +78,33 @@ public class HashTable<K, V> {
     }
 
   }
+
+  /**
+   * @return int return the sizeTable
+   */
+  public int getSizeTable() {
+    return sizeTable;
+  }
+
+  /**
+   * @param sizeTable the sizeTable to set
+   */
+  public void setSizeTable(int sizeTable) {
+    this.sizeTable = sizeTable;
+  }
+
+  /**
+   * @return Node<K, V>[] return the table
+   */
+  public Node<K, V>[] getTable() {
+    return table;
+  }
+
+  /**
+   * @param table the table to set
+   */
+  public void setTable(Node<K, V>[] table) {
+    this.table = table;
+  }
+
 }

@@ -107,7 +107,7 @@ public class Passenger {
 
     @Override
     public String toString() {
-        return "Id:" + id + "\nName:" + name + "\nRow:" + row + "\nChair:" + chair + "\nFirstClass:" + firstClass
-                + "\nPregnant:" + pregnant + "\nOldAge:" + oldAge + "\n" + "\nAccumulatedMilles" + accumulatedMiles;
+        return "Id: " + id + "\nName: " + name + "\nRow: " + row + "\nChair: " + chair + "\nFirstClass: " + firstClass
+                + "\nPregnant: " + pregnant + "\nOldAge: " + oldAge + "\nAccumulatedMilles: " + accumulatedMiles;
     }
 }
