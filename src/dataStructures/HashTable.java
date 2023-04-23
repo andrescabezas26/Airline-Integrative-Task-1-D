@@ -6,8 +6,8 @@ public class HashTable<K, V> {
   private Node<K, V>[] table;
 
   @SuppressWarnings("unchecked")
-  public HashTable(int size) {
-    sizeTable = size;
+  public HashTable(int sizeTable) {
+    this.sizeTable = sizeTable;
     this.table = (Node<K, V>[]) new Node[sizeTable];
   }
 
@@ -16,15 +16,22 @@ public class HashTable<K, V> {
     return Math.abs(key.hashCode()) % sizeTable;
   }
 
-  public String add(K key, V value) {
-    String msj = "";
+  public int hashString(K key) {
+    int hashValue = 0;
+    for (int i = 0; i < ((String) key).length(); i++) {
+      hashValue = (hashValue * 31 + ((String) key).charAt(i)) % sizeTable;
+    }
+    return hashValue;
+  }
 
+  public void add(K key, V value) {
     int index = hash(key);
+
     Node<K, V> newNode = new Node<K, V>(key, value);
     // si no hay ninguna colision
     if (table[index] == null) {
       table[index] = newNode;
-      msj = "nuevo nodo agrgado";
+
     } else {
       // si hay colison, se agrega el nodo al final
       Node<K, V> current = table[index];
@@ -32,9 +39,8 @@ public class HashTable<K, V> {
         current = current.getNext();
       }
       current.setNext(newNode);
-      msj = "nuevo nodo agrgado";
+
     }
-    return msj;
   }
 
   public V getValue(K key) {
@@ -44,7 +50,7 @@ public class HashTable<K, V> {
       return null;
     } else {
       Node<K, V> current = table[index];
-      while (current.getNext() != null) {
+      while (current != null) {
         if (current.getKey().equals(key)) {
           return current.getValue();
         }
@@ -54,13 +60,10 @@ public class HashTable<K, V> {
     }
   }
 
-  public String remove(K key) {
-    String msj = "";
+  public void remove(K key) {
     int index = hash(key);
 
-    if (table[index] == null) {
-      msj = "no se encontro valor a eliminar";
-    } else {
+    if (table[index] != null) {
       if (table[index].getKey().equals(key)) {
         table[index] = table[index].getNext();
       } else {
@@ -73,6 +76,6 @@ public class HashTable<K, V> {
         }
       }
     }
-    return msj;
+
   }
 }

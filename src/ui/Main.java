@@ -31,16 +31,18 @@ public class Main {
      * @return int
      */
     public int getOptionShowMenu() {
-        int option = 0;
-        System.out.println("<<<<< Welcome to Integrative Airline >>>>>");
-        System.out.println(
-                "1. Load data of passengers\n" +
-                        "2. \n" +
-                        "3. \n" +
-                        "4. \n" +
-                        "0. Salir\n");
+        int option = -1;
+        while (option == -1) {
+            System.out.println("<<<<< Welcome to Integrative Airline >>>>>");
+            System.out.println(
+                    "1. Load data of passengers\n" +
+                            "2. \n" +
+                            "3. \n" +
+                            "4. \n" +
+                            "0. Salir\n");
 
-        option = validateIntegerOption();
+            option = validateIntegerOption();
+        }
 
         return option;
     }
@@ -54,6 +56,7 @@ public class Main {
         switch (option) {
             case 1:
                 controller.loadData();
+                System.out.println("Passengers Data loaded");
                 break;
             case 2:
                 break;
@@ -62,10 +65,10 @@ public class Main {
             case 4:
                 break;
             case 0:
-                System.out.println("Gracias por usar");
+                System.out.println("Program Finish");
                 break;
             default:
-                System.out.println("Opcion invalida");
+                System.out.println("Invalid Option");
                 break;
         }
     }

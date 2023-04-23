@@ -11,7 +11,7 @@ public class Passenger {
     private boolean oldAge;
     private int accumulatedMiles;
 
-    public Passenger(String name, String id, int row, String chair, boolean firstClass, boolean pregnant,
+    public Passenger(String id, String name, int row, String chair, boolean firstClass, boolean pregnant,
             boolean oldAge, int accumulatedMiles) {
         this.name = name;
         this.id = id;
@@ -105,4 +105,9 @@ public class Passenger {
         this.accumulatedMiles = accumulatedMiles;
     }
 
+    @Override
+    public String toString() {
+        return "Id:" + id + "\nName:" + name + "\nRow:" + row + "\nChair:" + chair + "\nFirstClass:" + firstClass
+                + "\nPregnant:" + pregnant + "\nOldAge:" + oldAge + "\n" + "\nAccumulatedMilles" + accumulatedMiles;
+    }
 }
