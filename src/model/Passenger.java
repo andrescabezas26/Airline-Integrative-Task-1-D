@@ -10,6 +10,7 @@ public class Passenger {
     private boolean pregnant;
     private boolean oldAge;
     private int accumulatedMiles;
+    private int priorityBoarding;
 
     public Passenger(String id, String name, int row, String chair, boolean firstClass, boolean pregnant,
             boolean oldAge, int accumulatedMiles) {
@@ -108,6 +109,21 @@ public class Passenger {
     @Override
     public String toString() {
         return "Id: " + id + "\nName: " + name + "\nRow: " + row + "\nChair: " + chair + "\nFirstClass: " + firstClass
-                + "\nPregnant: " + pregnant + "\nOldAge: " + oldAge + "\nAccumulatedMilles: " + accumulatedMiles;
+                + "\nPregnant: " + pregnant + "\nOldAge: " + oldAge + "\nAccumulatedMilles: " + accumulatedMiles + "\nPriorityBoarding: " + priorityBoarding;
     }
+
+    /**
+     * @return int return the priorityBoarding
+     */
+    public int getPriorityBoarding() {
+        return priorityBoarding;
+    }
+
+    /**
+     * @param priorityBoarding the priorityBoarding to set
+     */
+    public void setPriorityBoarding(int priorityBoarding) {
+        this.priorityBoarding = priorityBoarding;
+    }
+
 }

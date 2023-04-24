@@ -9,6 +9,13 @@
             "name": "Main",
             "request": "launch",
             "mainClass": "ui.Main",
+            "projectName": "airline-integrative-task-1-cyed_974acf6"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "ui.Main",
             "projectName": "airline-integrative-task-1-cyed_444aeebe"
         },
         {
