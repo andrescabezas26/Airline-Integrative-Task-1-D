@@ -97,29 +97,55 @@ public class Controller {
 
     public void addPassengersToHashtable(String passengersInfo) {
         String[] lines = passengersInfo.split("\n");
+        String passengersArrivalOrder = readPassengersArrivalOrder();
         for (int i = 1; i < lines.length; i++) {
             String[] infoPassenger = lines[i].split("::");
             Passenger passenger = new Passenger(infoPassenger[0], infoPassenger[1], Integer.parseInt(infoPassenger[2]),
                     infoPassenger[3], Boolean.parseBoolean(infoPassenger[4]), Boolean.parseBoolean(infoPassenger[5]),
                     Boolean.parseBoolean(infoPassenger[6]), Integer.parseInt(infoPassenger[7]));
+            passenger.setPriorityBoarding(calculateBoardingPriority(passenger,passengersArrivalOrder));
             plane.getPassengersInfo().add(passenger.getId(), passenger);
-            passenger.setPriorityBoarding(calculateBoardingPriority(passenger));
         }
     }
 
-    public int calculateBoardingPriority(Passenger passenger) {
+    public int calculateBoardingPriority(Passenger passenger, String passengersArrivalOrder) {
+        
+        String[] orderList= passengersArrivalOrder.split("\n");
+        int priority = 0;
+        for (int i = 0; i < orderList.length; i++) {
+            if (orderList[i].equals(passenger.getId())) {
+                priority += plane.getTotalChairs()-i;
+                break;
+            }
+        }
+        if (passenger.getFirstClass()) {
+            priority += 10; // La prioridad de ser primera clase
+            if (passenger.getPregnant()) {
+                priority+=10;
+            }
+            if (passenger.getOldAge()) {
+                priority+=10;
+            }
+            priority += passenger.getAccumulatedMiles();
+        }
+        priority += passenger.getRow();
+
+        return priority;
+    }
+
+    public String readPassengersArrivalOrder(){
         File projectDir = new File(System.getProperty("user.dir"));
         FileReader archivo = null;
         BufferedReader lector = null;
 
-        String passengersOrder = "";
+        String passengersArrivalOrder = "";
         try {
             archivo = new FileReader(projectDir + "/data/order.txt");
             lector = new BufferedReader(archivo);
 
             String linea = lector.readLine();
             while (linea != null) {
-                passengersOrder += linea + "\n";
+                passengersArrivalOrder += linea + "\n";
                 linea = lector.readLine();
             }
         } catch (IOException e) {
@@ -132,28 +158,7 @@ public class Controller {
                 ex.printStackTrace();
             }
         }
-
-        String[] orderList= passengersOrder.split("\n");
-        int priority = 0;
-        for (int i = 0; i < orderList.length; i++) {
-            if (orderList[i].equals(passenger.getId())) {
-                priority += orderList.length-i;
-                break;
-            }
-        }
-        if (passenger.getFirstClass()) {
-            priority += 1; // La prioridad de ser primera clase
-            if (passenger.getPregnant()) {
-                priority+=1;
-            }
-            if (passenger.getOldAge()) {
-                priority+=1;
-            }
-            priority += passenger.getAccumulatedMiles();
-        }
-        priority += passenger.getRow();
-
-        return priority;
+        return passengersArrivalOrder;
     }
 
     /**

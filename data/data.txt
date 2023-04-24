@@ -32,36 +32,6 @@ FXD286::Abigail Davis::4::F::false::false::false::29
 GTP512::Sophia Garcia::5::A::false::false::true::6
 OJF479::Jacob Brown::5::B::false::false::false::26
 WRL783::Avery Hernandez::5::C::false::false::false::50
-HFE396::William Wilson::5::D::false::true::false::69
+HFE396::Andres Mesa::5::D::false::true::false::69
 IWM491::Chloe Johnson::5::E::true::false::false::91
 QKP953::Nicholas Davis::5::F::true::false::false::76
-EXR347::Isabella Wilson::6::A::false::false::false::61
-MQY647::Michael Brown::6::B::false::false::false::18
-HTC564::Mia Hernandez::6::C::false::false::false::24
-GJC245::Lucas Johnson::6::D::false::false::false::93
-HZU460::Emily Garcia::6::E::false::true::false::60
-LKW374::Ethan Wilson::6::F::false::false::false::17
-YUZ218::Ava Brown::7::A::false::false::false::98
-OIP052::Gustavo Hernández::7::B::false::false::false::47
-PLT018::Valeria Acosta::7::C::true::false::true::10
-CRB041::Santiago Martínez::7::D::false::false::false::93
-SNX064::Laura Castro::7::E::false::false::false::31
-CMB033::Esteban Rueda::7::F::true::false::true::24
-FCD097::María García::8::A::false::true::false::60
-LKP087::Camilo Rodríguez::8::B::true::false::false::5
-ZQW073::Julián Ortiz::8::C::true::true::true::98
-AFO001::Mauricio Torres::8::D::true::false::true::65
-JDE005::David Díaz::8::E::false::true::false::75
-BTO068::Juliana Pérez::8::F::true::true::true::86
-HLW022::Sofía Ortiz::9::A::false::false::false::73
-VAX081::Martina Gómez::9::B::true::false::false::41
-PKL043::Valentina Díaz::9::C::true::true::true::58
-MXS009::Sebastián Vargas::9::D::false::false::false::45
-KDS062::Juan Camilo Torres::9::E::false::true::false::97
-ABG008::Diego Rodríguez::9::F::true::false::true::3
-KQF047::Nicolás González::10::A::false::true::false::68
-RPV023::Gabriel Ríos::10::B::true::true::true::83
-TRO018::Catalina Herrera::10::C::true::false::false::56
-FPO085::Alejandra Rojas::10::D::false::false::false::29
-YQJ070::Ana María Osorio::10::E::false::true::false::90
-WNU012::Andrés García::10::F::false::false::true::51

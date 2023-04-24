@@ -37,7 +37,7 @@ public class Main {
             System.out.println(
                     "1. Load data of passengers\n" +
                             "2. See list of loaded passengers \n" +
-                            "3. \n" +
+                            "3. See Boarding Arrival List\n" +
                             "4. \n" +
                             "0. Exit\n");
 
@@ -65,6 +65,7 @@ public class Main {
 
                 break;
             case 3:
+                System.out.println(controller.printListBoarding());
                 break;
             case 4:
                 break;
