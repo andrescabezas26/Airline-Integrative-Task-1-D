@@ -9,7 +9,9 @@ public class Plane {
     private int numFirstClass;
     private int chairsForRow;
     private int totalChairs;
+    private int totalPassengers;
     private HashTable<String, Passenger> passengersInfo;
+    private Heap<Integer, String> boardingArrivalOrder;
 
     public Plane(String airline, int numRows, int numFirstClass, int chairsForRow) {
         this.airline = airline;
@@ -18,6 +20,7 @@ public class Plane {
         this.chairsForRow = chairsForRow;
         this.totalChairs = chairsForRow * numRows;
         this.passengersInfo = new HashTable<>(totalChairs);
+        this.boardingArrivalOrder = new Heap<>(totalPassengers);
     }
 
     /**
@@ -102,6 +105,35 @@ public class Plane {
      */
     public void setPassengersInfo(HashTable<String, Passenger> passengersInfo) {
         this.passengersInfo = passengersInfo;
+    }
+
+
+    /**
+     * @return int return the totalPassengers
+     */
+    public int getTotalPassengers() {
+        return totalPassengers;
+    }
+
+    /**
+     * @param totalPassengers the totalPassengers to set
+     */
+    public void setTotalPassengers(int totalPassengers) {
+        this.totalPassengers = totalPassengers;
+    }
+
+    /**
+     * @return Heap<Integer, String> return the boardingArrivalOrder
+     */
+    public Heap<Integer, String> getBoardingArrivalOrder() {
+        return boardingArrivalOrder;
+    }
+
+    /**
+     * @param boardingArrivalOrder the boardingArrivalOrder to set
+     */
+    public void setBoardingArrivalOrder(Heap<Integer, String> boardingArrivalOrder) {
+        this.boardingArrivalOrder = boardingArrivalOrder;
     }
 
 }

@@ -1,6 +1,7 @@
 package model;
 
 import dataStructures.*;
+import exceptions.KeyIsSmaller;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -105,7 +106,14 @@ public class Controller {
                     Boolean.parseBoolean(infoPassenger[6]), Integer.parseInt(infoPassenger[7]));
             passenger.setPriorityBoarding(calculateBoardingPriority(passenger,passengersArrivalOrder));
             plane.getPassengersInfo().add(passenger.getId(), passenger);
+            try{
+                plane.getBoardingArrivalOrder().maxHeapInsert(plane.getBoardingArrivalOrder().getArray(), new Couple<>(passenger.getPriorityBoarding(), passenger.getId()));
+            } catch (KeyIsSmaller e){
+                System.out.println("Sirvio");
+            }
+            
         }
+        plane.setTotalPassengers(lines.length);
     }
 
     public int calculateBoardingPriority(Passenger passenger, String passengersArrivalOrder) {
@@ -173,6 +181,15 @@ public class Controller {
      */
     public void setPlane(Plane plane) {
         this.plane = plane;
+    }
+
+    public String printListBoarding() {
+
+        String msj = "";
+
+        
+
+        return msj;
     }
 
 }

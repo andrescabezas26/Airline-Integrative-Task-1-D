@@ -1,5 +1,7 @@
 package dataStructures;
 
+import java.util.ArrayList;
+
 import exceptions.*;
 
 public class Heap<K extends Comparable<K>, T> implements IMonticulo<K, T>, IPriorityQueue<K, T> {
@@ -26,8 +28,9 @@ public class Heap<K extends Comparable<K>, T> implements IMonticulo<K, T>, IPrio
      * 
      * @param array
      */
-    public Heap(Couple<K, T>[] array) {
-        this.array = array;
+    public Heap(int sizeArray) {
+        array = new Couple[sizeArray];
+        array = (Couple<K, T>[]) array;
         int heSize = 0;
         for (int i = 0; i < array.length; i++) {
             if (array[i] != null) {
