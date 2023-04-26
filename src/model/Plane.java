@@ -20,7 +20,23 @@ public class Plane {
         this.chairsForRow = chairsForRow;
         this.totalChairs = chairsForRow * numRows;
         this.passengersInfo = new HashTable<>(totalChairs);
-        this.boardingArrivalOrder = new Heap<>(totalPassengers);
+        
+    }
+
+    public void createBoardingArrivalOrder(){
+        this.boardingArrivalOrder = new Heap<>(this.totalPassengers);
+    }
+
+    public String printListBoardingArrivalOrder(){
+        String msj = "";
+
+        for (int index = 0; index < boardingArrivalOrder.getArray().length; index++) {
+            if (boardingArrivalOrder.getArray()[index] != null) {
+                msj += boardingArrivalOrder.getArray()[index].getObject() + "--> " + boardingArrivalOrder.getArray()[index].getKey() +"\n";
+            }
+        }
+
+        return msj;
     }
 
     /**

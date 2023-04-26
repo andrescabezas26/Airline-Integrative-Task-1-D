@@ -24,7 +24,7 @@ WUD615::Nicholas Johnson::3::D::false::true::false::32
 BLR729::Emily Wilson::3::E::false::false::false::10
 JYU573::Ethan Davis::3::F::false::false::false::64
 WMP944::Emma Garcia::4::A::false::false::false::36
-VDE891::Kanye West::4::B::false::true::false::70
+VDE891::Kanye West::4::B::true::false::false::70
 OKL306::Samantha Wilson::4::C::true::false::false::46
 MQS964::Lily Johnson::4::D::false::false::false::85
 WUP289::Noah Hernandez::4::E::false::false::false::67

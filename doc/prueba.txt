@@ -1,0 +1,375 @@
+BLR729 -
+WUD615 -
+KBN462 -
+YTF663 -
+BJT900 -
+WRL783 -
+GTH352 -
+MQS964 - 
+NPS857 -
+OJF479 -
+DWZ831 -
+VYG320 -
+LQD779 -
+VXU305 -
+VDE891 -
+GTP512 -
+FXD286 -
+DRZ456 -
+QKP953 -
+WUP289
+JYU573
+HXN623
+OQM156
+HFE396
+KLY225
+IWM491
+HVM358
+OKL306
+WMP944
+XMQ304
+
+<<PASSENGERS DATA LOADED>>
+The plane information is:
+Airline: Avianca
+Number of rows: 10
+Number of first class rows: 3
+Number of chairs per row: 6
+
+<<<<< Welcome to Integrative Airline >>>>>
+1. Load data of passengers
+2. See list of loaded passengers
+3. See Boarding Arrival List
+4.
+0. Exit
+
+2
+<<Passenger>> 
+Id: WMP944
+Name: Emma Garcia
+Row: 4
+Chair: A
+FirstClass: false
+Pregnant: false
+OldAge: false
+AccumulatedMilles: 36
+PriorityBoarding: 32
+
+<<Passenger>>
+Id: YTF663
+Name: Alexander Brown
+Row: 3
+Chair: A
+FirstClass: true
+Pregnant: false
+OldAge: false
+AccumulatedMilles: 25
+PriorityBoarding: 92
+
+<<Passenger>>
+Id: DRZ456
+Name: Emma Wilson
+Row: 1
+Chair: B
+FirstClass: true
+Pregnant: false
+OldAge: false
+AccumulatedMilles: 73
+PriorityBoarding: 126
+
+<<Passenger>>
+Id: XMQ304
+Name: Avery Johnson
+Row: 1
+Chair: F
+FirstClass: false
+Pregnant: true
+OldAge: false
+AccumulatedMilles: 75
+PriorityBoarding: 31
+
+<<Passenger>>
+Id: DWZ831
+Name: Jacob Hernandez
+Row: 2
+Chair: D
+FirstClass: true
+Pregnant: false
+OldAge: false
+AccumulatedMilles: 85
+PriorityBoarding: 145
+
+<<Passenger>>
+Id: VYG320
+Name: Isabella Hernandez
+Row: 3
+Chair: C
+FirstClass: false
+Pregnant: false
+OldAge: false
+AccumulatedMilles: 51
+PriorityBoarding: 49
+
+<<Passenger>>
+Id: IWM491
+Name: Chloe Johnson
+Row: 5
+Chair: E
+FirstClass: true
+Pregnant: false
+OldAge: false
+AccumulatedMilles: 91
+PriorityBoarding: 136
+
+<<Passenger>>
+Id: OQM156
+Name: Lucas Wilson
+Row: 2
+Chair: F
+FirstClass: true
+Pregnant: false
+OldAge: false
+AccumulatedMilles: 90
+PriorityBoarding: 138
+
+<<Passenger>>
+Id: HFE396
+Name: Andres Mesa
+Row: 5
+Chair: D
+FirstClass: false
+Pregnant: true
+OldAge: false
+AccumulatedMilles: 69
+PriorityBoarding: 37
+
+<<Passenger>>
+Id: LQD779
+Name: Chloe Davis
+Row: 2
+Chair: C
+FirstClass: false
+Pregnant: false
+OldAge: false
+AccumulatedMilles: 28
+PriorityBoarding: 48
+
+<<Passenger>>
+Id: BJT900
+Name: Noah Davis
+Row: 1
+Chair: C
+FirstClass: false
+Pregnant: false
+OldAge: false
+AccumulatedMilles: 62
+PriorityBoarding: 56
+
+<<Passenger>>
+Id: GTH352
+Name: Ethan Taylor
+Row: 1
+Chair: E
+FirstClass: true
+Pregnant: false
+OldAge: false
+AccumulatedMilles: 91
+PriorityBoarding: 155
+
+<<Passenger>>
+Id: OKL306
+Name: Samantha Wilson
+Row: 4
+Chair: C
+FirstClass: true
+Pregnant: false
+OldAge: false
+AccumulatedMilles: 46
+PriorityBoarding: 89
+
+<<Passenger>>
+Id: BLR729
+Name: Emily Wilson
+Row: 3
+Chair: E
+FirstClass: false
+Pregnant: false
+OldAge: false
+AccumulatedMilles: 10
+PriorityBoarding: 60
+
+<<Passenger>>
+Id: FXD286
+Name: Abigail Davis
+Row: 4
+Chair: F
+FirstClass: false
+Pregnant: false
+OldAge: false
+AccumulatedMilles: 29
+PriorityBoarding: 44
+
+<<Passenger>>
+Id: GTP512
+Name: Sophia Garcia
+Row: 5
+Chair: A
+FirstClass: false
+Pregnant: false
+OldAge: true
+AccumulatedMilles: 6
+PriorityBoarding: 45
+
+<<Passenger>>
+Id: JYU573
+Name: Ethan Davis
+Row: 3
+Chair: F
+FirstClass: false
+Pregnant: false
+OldAge: false
+AccumulatedMilles: 64
+PriorityBoarding: 40
+
+<<Passenger>>
+Id: NPS857
+Name: Olivia Hernandez
+Row: 1
+Chair: D
+FirstClass: false
+Pregnant: false
+OldAge: false
+AccumulatedMilles: 22
+PriorityBoarding: 52
+
+<<Passenger>>
+Id: KBN462
+Name: Sophia Wilson
+Row: 2
+Chair: A
+FirstClass: false
+Pregnant: false
+OldAge: false
+AccumulatedMilles: 80
+PriorityBoarding: 58
+
+<<Passenger>>
+Id: MQS964
+Name: Lily Johnson
+Row: 4
+Chair: D
+FirstClass: false
+Pregnant: false
+OldAge: false
+AccumulatedMilles: 85
+PriorityBoarding: 53
+
+<<Passenger>>
+Id: HXN623
+Name: Ava Davis
+Row: 3
+Chair: B
+FirstClass: false
+Pregnant: false
+OldAge: false
+AccumulatedMilles: 81
+PriorityBoarding: 39
+
+<<Passenger>>
+Id: HVM358
+Name: William Brown
+Row: 2
+Chair: B
+FirstClass: false
+Pregnant: false
+OldAge: true
+AccumulatedMilles: 11
+PriorityBoarding: 0
+
+<<Passenger>>
+Id: QKP953
+Name: Nicholas Davis
+Row: 5
+Chair: F
+FirstClass: true
+Pregnant: false
+OldAge: false
+AccumulatedMilles: 76
+PriorityBoarding: 128
+
+<<Passenger>>
+Id: WUD615
+Name: Nicholas Johnson
+Row: 3
+Chair: D
+FirstClass: false
+Pregnant: true
+OldAge: false
+AccumulatedMilles: 32
+PriorityBoarding: 59
+
+<<Passenger>>
+Id: KLY225
+Name: Juan Camacho
+Row: 1
+Chair: A
+FirstClass: true
+Pregnant: false
+OldAge: false
+AccumulatedMilles: 48
+PriorityBoarding: 94
+
+<<Passenger>>
+Id: OJF479
+Name: Jacob Brown
+Row: 5
+Chair: B
+FirstClass: false
+Pregnant: false
+OldAge: false
+AccumulatedMilles: 26
+PriorityBoarding: 51
+
+<<Passenger>>
+Id: VDE891
+Name: Kanye West
+Row: 4
+Chair: B
+FirstClass: true
+Pregnant: false
+OldAge: false
+AccumulatedMilles: 70
+PriorityBoarding: 126
+
+<<Passenger>>
+Id: WUP289
+Name: Noah Hernandez
+Row: 4
+Chair: E
+FirstClass: false
+Pregnant: false
+OldAge: false
+AccumulatedMilles: 67
+PriorityBoarding: 41
+
+<<Passenger>>
+Id: VXU305
+Name: Madison Garcia
+Row: 2
+Chair: E
+FirstClass: true
+Pregnant: false
+OldAge: false
+AccumulatedMilles: 68
+PriorityBoarding: 125
+
+<<Passenger>>
+Id: WRL783
+Name: Avery Hernandez
+Row: 5
+Chair: C
+FirstClass: false
+Pregnant: false
+OldAge: false
+AccumulatedMilles: 50
+PriorityBoarding: 55

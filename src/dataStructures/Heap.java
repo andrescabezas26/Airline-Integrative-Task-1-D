@@ -252,9 +252,15 @@ public class Heap<K extends Comparable<K>, T> implements IMonticulo<K, T>, IPrio
         }
 
         array[i].setKey(key);
+        if (array[getParent(i)] == null) {
+            return;
+        }
         while (i > 0 && array[getParent(i)].getKey().compareTo(array[i].getKey()) < 0) {
             swap(i, getParent(i));
             i = getParent(i);
+            if (array[getParent(i)] == null) {
+                return;
+            }
         }
 
     }

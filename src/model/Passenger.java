@@ -11,6 +11,7 @@ public class Passenger {
     private boolean oldAge;
     private int accumulatedMiles;
     private int priorityBoarding;
+    private int priorityDisembarking;
 
     public Passenger(String id, String name, int row, String chair, boolean firstClass, boolean pregnant,
             boolean oldAge, int accumulatedMiles) {
@@ -124,6 +125,21 @@ public class Passenger {
      */
     public void setPriorityBoarding(int priorityBoarding) {
         this.priorityBoarding = priorityBoarding;
+    }
+
+
+    /**
+     * @return int return the priorityDisembarking
+     */
+    public int getPriorityDisembarking() {
+        return priorityDisembarking;
+    }
+
+    /**
+     * @param priorityDisembarking the priorityDisembarking to set
+     */
+    public void setPriorityDisembarking(int priorityDisembarking) {
+        this.priorityDisembarking = priorityDisembarking;
     }
 
 }

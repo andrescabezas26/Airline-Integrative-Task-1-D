@@ -59,13 +59,14 @@ public class Controller {
                 infoPlane += linea + "\n";
                 linea = lector.readLine();
             }
+
             msj = createPlane(infoPlane);
 
             while (linea != null) {
                 passengersInfo += linea + "\n";
                 linea = lector.readLine();
             }
-            addPassengersToHashtable(passengersInfo);
+            addPassengersToDataStructures(passengersInfo);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -96,52 +97,61 @@ public class Controller {
         return msj;
     }
 
-    public void addPassengersToHashtable(String passengersInfo) {
+    public void addPassengersToDataStructures(String passengersInfo) {
         String[] lines = passengersInfo.split("\n");
         String passengersArrivalOrder = readPassengersArrivalOrder();
+        plane.setTotalPassengers(lines.length);
+        plane.createBoardingArrivalOrder();
         for (int i = 1; i < lines.length; i++) {
             String[] infoPassenger = lines[i].split("::");
             Passenger passenger = new Passenger(infoPassenger[0], infoPassenger[1], Integer.parseInt(infoPassenger[2]),
                     infoPassenger[3], Boolean.parseBoolean(infoPassenger[4]), Boolean.parseBoolean(infoPassenger[5]),
                     Boolean.parseBoolean(infoPassenger[6]), Integer.parseInt(infoPassenger[7]));
-            passenger.setPriorityBoarding(calculateBoardingPriority(passenger,passengersArrivalOrder));
+            /// Calcula la prioridad de abordaje de cada pasajero///
+            passenger.setPriorityBoarding(calculateBoardingPriority(passenger, passengersArrivalOrder));
+            ////////////////////////////////////////////////////////
             plane.getPassengersInfo().add(passenger.getId(), passenger);
-            try{
-                plane.getBoardingArrivalOrder().maxHeapInsert(plane.getBoardingArrivalOrder().getArray(), new Couple<>(passenger.getPriorityBoarding(), passenger.getId()));
-            } catch (KeyIsSmaller e){
+            
+            /// Calcula la prioridad de abordaje de cada pasajero///
+            passenger.setPriorityDisembarking(calculateDisembarkationPriority(passenger, passengersArrivalOrder));
+            ////////////////////////////////////////////////////////
+
+            try {
+                plane.getBoardingArrivalOrder().maxHeapInsert(plane.getBoardingArrivalOrder().getArray(),
+                        new Couple<>(passenger.getPriorityBoarding(), passenger.getId()));
+            } catch (KeyIsSmaller e) {
                 System.out.println("Sirvio");
             }
-            
+
         }
-        plane.setTotalPassengers(lines.length);
+
     }
 
     public int calculateBoardingPriority(Passenger passenger, String passengersArrivalOrder) {
-        
-        String[] orderList= passengersArrivalOrder.split("\n");
+
+        String[] orderList = passengersArrivalOrder.split("\n");
         int priority = 0;
         for (int i = 0; i < orderList.length; i++) {
             if (orderList[i].equals(passenger.getId())) {
-                priority += plane.getTotalChairs()-i;
+                priority += plane.getTotalChairs() - i;
                 break;
             }
         }
         if (passenger.getFirstClass()) {
             priority += 10; // La prioridad de ser primera clase
             if (passenger.getPregnant()) {
-                priority+=10;
+                priority += 10;
             }
             if (passenger.getOldAge()) {
-                priority+=10;
+                priority += 10;
             }
             priority += passenger.getAccumulatedMiles();
         }
-        priority += passenger.getRow();
 
         return priority;
     }
 
-    public String readPassengersArrivalOrder(){
+    public String readPassengersArrivalOrder() {
         File projectDir = new File(System.getProperty("user.dir"));
         FileReader archivo = null;
         BufferedReader lector = null;
@@ -169,6 +179,50 @@ public class Controller {
         return passengersArrivalOrder;
     }
 
+    public int calculateDisembarkationPriority(Passenger passenger, String passengersArrivalOrder) {
+        String[] orderList = passengersArrivalOrder.split("\n");
+        int chairForRow = plane.getChairsForRow();
+        int priority = -1 * passenger.getRow();
+        int passengerChair = letterToInt(passenger.getChair());
+
+        for (int i = 0; i < orderList.length; i++) {
+            if (orderList[i].equals(passenger.getId())) {
+                priority -= i;
+                break;
+            }
+        }
+
+        if (chairForRow % 2 == 0) {
+            int half1 = chairForRow / 2;
+            int half2 = half1 + 1;
+            if (passengerChair >= half2) {
+                priority -= passengerChair - half2;
+            } else {
+                priority -= half1 - passengerChair;
+            }
+        } else {
+            Double half = Math.ceil(chairForRow / 2);
+            if (passengerChair >= half) {
+                priority -= passengerChair - half;
+            } else {
+                priority -= half - passengerChair;
+            }
+        }
+
+        return priority;
+    }
+
+    /**
+     * intToLetter: Uses the ASCII code to get the value of a letter in the alphabet
+     * 
+     * @param String = The letter of the alphabet
+     * @return num : The letter converted to int
+     */
+    private int letterToInt(String letter) {
+        int num = ((char) (letter.charAt(0))) - 64;
+        return num;
+    }
+
     /**
      * @return Plane return the plane
      */
@@ -184,12 +238,7 @@ public class Controller {
     }
 
     public String printListBoarding() {
-
-        String msj = "";
-
-        
-
-        return msj;
+        return plane.printListBoardingArrivalOrder();
     }
 
 }
