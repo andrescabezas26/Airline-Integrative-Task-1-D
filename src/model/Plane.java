@@ -1,6 +1,9 @@
 package model;
 
+import java.util.PriorityQueue;
+
 import dataStructures.*;
+import exceptions.HeapUnderflow;
 
 public class Plane {
 
@@ -20,6 +23,7 @@ public class Plane {
         this.chairsForRow = chairsForRow;
         this.totalChairs = chairsForRow * numRows;
         this.passengersInfo = new HashTable<>(totalChairs);
+
         
     }
 
@@ -30,13 +34,29 @@ public class Plane {
     public String printListBoardingArrivalOrder(){
         String msj = "";
 
-        for (int index = 0; index < boardingArrivalOrder.getArray().length; index++) {
-            if (boardingArrivalOrder.getArray()[index] != null) {
-                msj += boardingArrivalOrder.getArray()[index].getObject() + "--> " + boardingArrivalOrder.getArray()[index].getKey() +"\n";
+        for (int index = 1; index < boardingArrivalOrder.getArray().length; index++) {
+            Couple<Integer, String> cp=null;
+            try {
+                cp = boardingArrivalOrder.heapExtracMax(boardingArrivalOrder.getArray());
+            } catch (HeapUnderflow e) {
+                e.printStackTrace();
             }
+            msj +=index+")"+ cp.getObject() + "\t"+ cp.getKey() +"\n";
         }
 
         return msj;
+    }
+
+    public String printPrueba(){
+        String msj  = "";
+        for (int index = 0; index < boardingArrivalOrder.getArray().length; index++) {
+            if (boardingArrivalOrder.getArray()[index]!=null) {
+                msj += "" + index + ") " + boardingArrivalOrder.getArray()[index].getObject()+"\t"+boardingArrivalOrder.getArray()[index].getKey()+"\n";
+            }
+        }
+        
+        return msj;
+        
     }
 
     /**

@@ -140,10 +140,10 @@ public class Controller {
         if (passenger.getFirstClass()) {
             priority += 10; // La prioridad de ser primera clase
             if (passenger.getPregnant()) {
-                priority += 10;
+                priority += 20;
             }
             if (passenger.getOldAge()) {
-                priority += 10;
+                priority += 15;
             }
             priority += passenger.getAccumulatedMiles();
         }
@@ -238,7 +238,20 @@ public class Controller {
     }
 
     public String printListBoarding() {
-        return plane.printListBoardingArrivalOrder();
+        if (plane== null) {
+            return "No loaded data";
+        } else {
+            return plane.printListBoardingArrivalOrder();    
+        }
+        
+    }
+
+    public String prueba(){
+        if (plane== null) {
+            return "No loaded data";
+        } else {
+            return plane.printPrueba();    
+        }
     }
 
 }

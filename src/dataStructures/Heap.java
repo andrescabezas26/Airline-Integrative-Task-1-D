@@ -21,7 +21,7 @@ public class Heap<K extends Comparable<K>, T> implements IMonticulo<K, T>, IPrio
 
     private Couple<K, T>[] array;
     private int heapSize;
-
+    
     /**
      * Se inicializa con un array anteriormente creado, y su heapSize es igual a la
      * cantidad de elementos que van a hacer parte del arbol a trabajar
@@ -29,8 +29,7 @@ public class Heap<K extends Comparable<K>, T> implements IMonticulo<K, T>, IPrio
      * @param array
      */
     public Heap(int sizeArray) {
-        array = new Couple[sizeArray];
-        array = (Couple<K, T>[]) array;
+        array = (Couple<K, T>[]) new Couple[sizeArray];
         int heSize = 0;
         for (int i = 0; i < array.length; i++) {
             if (array[i] != null) {
@@ -81,7 +80,7 @@ public class Heap<K extends Comparable<K>, T> implements IMonticulo<K, T>, IPrio
         int right = getRight(i);
         int largest = i;
 
-        if (left < heapSize && array[left].getKey().compareTo(array[i].getKey()) > 0) {
+        if (left < heapSize &&  array[left].getKey().compareTo(array[i].getKey()) > 0) {
             largest = left;
         }
         if (right < heapSize && array[right].getKey().compareTo(array[largest].getKey()) > 0) {
@@ -215,10 +214,10 @@ public class Heap<K extends Comparable<K>, T> implements IMonticulo<K, T>, IPrio
         } catch (HeapUnderflow e) {
             e.printStackTrace();
         }
-
-        Couple<K, T> max = new Couple<>(array[0].getKey(), array[0].getObject());
+        
+        Couple<K, T> max = new Couple<>(array[1].getKey(), array[1].getObject());
         array[0] = array[heapSize];
-        heapSize--;
+        --heapSize;
         maxHeapify(array, 0);
         return max;
     }
