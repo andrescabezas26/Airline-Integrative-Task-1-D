@@ -31,7 +31,7 @@ public class Controller {
         for (int i = 0; i < plane.getPassengersInfo().getSizeTable(); i++) {
             Node<String, Passenger> current = table[i];
             while (current != null) {
-                msj += "<<Passenger>> \n" + current.getValue().toString() + "\n\n";
+                msj += "<< Passenger >> \n" + current.getValue().toString() + "\n\n";
                 current = current.getNext();
             }
 
@@ -111,8 +111,8 @@ public class Controller {
             passenger.setPriorityBoarding(calculateBoardingPriority(passenger, passengersArrivalOrder));
             ////////////////////////////////////////////////////////
             plane.getPassengersInfo().add(passenger.getId(), passenger);
-            
-            /// Calcula la prioridad de abordaje de cada pasajero///
+
+            /// Calcula la prioridad de desbordaje de cada pasajero///
             passenger.setPriorityDisembarking(calculateDisembarkationPriority(passenger, passengersArrivalOrder));
             ////////////////////////////////////////////////////////
 
@@ -120,10 +120,11 @@ public class Controller {
                 plane.getBoardingArrivalOrder().maxHeapInsert(plane.getBoardingArrivalOrder().getArray(),
                         new Couple<>(passenger.getPriorityBoarding(), passenger.getId()));
             } catch (KeyIsSmaller e) {
-                System.out.println("Sirvio");
+                System.out.println("No Sirvio");
             }
 
         }
+        //
 
     }
 
