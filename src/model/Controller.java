@@ -100,7 +100,7 @@ public class Controller {
     public void addPassengersToDataStructures(String passengersInfo) {
         String[] lines = passengersInfo.split("\n");
         String passengersArrivalOrder = readPassengersArrivalOrder();
-        plane.setTotalPassengers(lines.length);
+        plane.setTotalPassengers(lines.length - 1);
         plane.createBoardingArrivalOrder();
         for (int i = 1; i < lines.length; i++) {
             String[] infoPassenger = lines[i].split("::");
@@ -239,20 +239,12 @@ public class Controller {
     }
 
     public String printListBoarding() {
-        if (plane== null) {
+        if (plane == null) {
             return "No loaded data";
         } else {
-            return plane.printListBoardingArrivalOrder();    
+            return plane.printListBoardingArrivalOrder();
         }
-        
-    }
 
-    public String prueba(){
-        if (plane== null) {
-            return "No loaded data";
-        } else {
-            return plane.printPrueba();    
-        }
     }
 
 }

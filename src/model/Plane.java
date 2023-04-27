@@ -24,39 +24,23 @@ public class Plane {
         this.totalChairs = chairsForRow * numRows;
         this.passengersInfo = new HashTable<>(totalChairs);
 
-        
     }
 
-    public void createBoardingArrivalOrder(){
+    public void createBoardingArrivalOrder() {
         this.boardingArrivalOrder = new Heap<>(this.totalPassengers);
     }
 
-    public String printListBoardingArrivalOrder(){
-        String msj = "";
-
-        for (int index = 1; index < boardingArrivalOrder.getArray().length; index++) {
-            Couple<Integer, String> cp=null;
-            try {
-                cp = boardingArrivalOrder.heapExtracMax(boardingArrivalOrder.getArray());
-            } catch (HeapUnderflow e) {
-                e.printStackTrace();
-            }
-            msj +=index+")"+ cp.getObject() + "\t"+ cp.getKey() +"\n";
-        }
-
-        return msj;
-    }
-
-    public String printPrueba(){
-        String msj  = "";
+    public String printListBoardingArrivalOrder() {
+        String msj = "\n<< BOARDING ARRIVAL LIST >> \n";
+        setPriority();
         for (int index = 0; index < boardingArrivalOrder.getArray().length; index++) {
-            if (boardingArrivalOrder.getArray()[index]!=null) {
-                msj += "" + index + ") " + boardingArrivalOrder.getArray()[index].getObject()+"\t"+boardingArrivalOrder.getArray()[index].getKey()+"\n";
+            if (boardingArrivalOrder.getArray()[index] != null) {
+                msj += "" + (index + 1) + ") " + boardingArrivalOrder.getArray()[index].getObject() + "\t"
+                        + boardingArrivalOrder.getArray()[index].getKey() + "\n";
             }
         }
-        
+
         return msj;
-        
     }
 
     /**
@@ -143,7 +127,6 @@ public class Plane {
         this.passengersInfo = passengersInfo;
     }
 
-
     /**
      * @return int return the totalPassengers
      */
@@ -156,6 +139,12 @@ public class Plane {
      */
     public void setTotalPassengers(int totalPassengers) {
         this.totalPassengers = totalPassengers;
+    }
+
+    public void setPriority() {
+        boardingArrivalOrder.minHeapify(boardingArrivalOrder.getArray(), 0);
+        boardingArrivalOrder.buildMinHeap(boardingArrivalOrder.getArray());
+        boardingArrivalOrder.heapSortMaxToMin(boardingArrivalOrder.getArray());
     }
 
     /**

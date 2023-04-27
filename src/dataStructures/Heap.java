@@ -21,7 +21,7 @@ public class Heap<K extends Comparable<K>, T> implements IMonticulo<K, T>, IPrio
 
     private Couple<K, T>[] array;
     private int heapSize;
-    
+
     /**
      * Se inicializa con un array anteriormente creado, y su heapSize es igual a la
      * cantidad de elementos que van a hacer parte del arbol a trabajar
@@ -80,7 +80,7 @@ public class Heap<K extends Comparable<K>, T> implements IMonticulo<K, T>, IPrio
         int right = getRight(i);
         int largest = i;
 
-        if (left < heapSize &&  array[left].getKey().compareTo(array[i].getKey()) > 0) {
+        if (left < heapSize && array[left].getKey().compareTo(array[i].getKey()) > 0) {
             largest = left;
         }
         if (right < heapSize && array[right].getKey().compareTo(array[largest].getKey()) > 0) {
@@ -214,9 +214,9 @@ public class Heap<K extends Comparable<K>, T> implements IMonticulo<K, T>, IPrio
         } catch (HeapUnderflow e) {
             e.printStackTrace();
         }
-        
+
         Couple<K, T> max = new Couple<>(array[1].getKey(), array[1].getObject());
-        array[0] = array[heapSize];
+        array[0] = array[heapSize - 1];
         --heapSize;
         maxHeapify(array, 0);
         return max;
@@ -252,15 +252,10 @@ public class Heap<K extends Comparable<K>, T> implements IMonticulo<K, T>, IPrio
 
         array[i].setKey(key);
 
-        if (array[getParent(i)] == null) {
-            return;
-        }
         while (i > 0 && array[getParent(i)].getKey().compareTo(array[i].getKey()) < 0) {
             swap(i, getParent(i));
             i = getParent(i);
-            if (array[getParent(i)] == null) {
-                break;
-            }
+
         }
 
     }
@@ -295,9 +290,10 @@ public class Heap<K extends Comparable<K>, T> implements IMonticulo<K, T>, IPrio
     @Override
     public void maxHeapInsert(Couple<K, T>[] array, Couple<K, T> couple) throws KeyIsSmaller {
 
-        heapSize++;
         array[heapSize] = couple;
-        heapIncreaseKey(array, heapSize, couple.getKey());
+        heapSize++;
+
+        heapIncreaseKey(array, heapSize - 1, couple.getKey());
 
     }
 

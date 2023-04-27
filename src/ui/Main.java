@@ -68,7 +68,7 @@ public class Main {
                 System.out.println(controller.printListBoarding());
                 break;
             case 4:
-                System.out.println(controller.prueba()+"\n\n\n");
+
                 break;
             case 0:
                 System.out.println("Program Finish");
