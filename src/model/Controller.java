@@ -1,7 +1,6 @@
 package model;
 
 import dataStructures.*;
-import exceptions.HeapUnderflow;
 import exceptions.KeyIsSmaller;
 
 import java.io.BufferedReader;
@@ -100,7 +99,6 @@ public class Controller {
 
     public void addPassengersToDataStructures(String passengersInfo) {
         String[] lines = passengersInfo.split("\n");
-        String passengersArrivalOrder = readPassengersArrivalOrder();
         plane.setTotalPassengers(lines.length - 1);
         plane.createBoardingArrivalOrder();
         for (int i = 1; i < lines.length; i++) {
@@ -109,7 +107,7 @@ public class Controller {
                     infoPassenger[3], Boolean.parseBoolean(infoPassenger[4]), Boolean.parseBoolean(infoPassenger[5]),
                     Boolean.parseBoolean(infoPassenger[6]), Integer.parseInt(infoPassenger[7]));
             /// Calcula la prioridad de abordaje de cada pasajero///
-            passenger.setPriorityBoarding(calculateBoardingPriority(passenger));
+            passenger.setPriorityBoarding(calculateBoardingPriorityNew(passenger));
             ////////////////////////////////////////////////////////
             plane.getPassengersInfo().add(passenger.getId(), passenger);
 
@@ -136,11 +134,12 @@ public class Controller {
 
     }
 
-    public int calculateBoardingPriority(Passenger passenger) {
-        int priority = plane.getTotalChairs() - calculatePassengerArrival(passenger);
+    public int calculateBoardingPriorityNew(Passenger passenger) {
+       
+        int priority = passenger.getRow();
 
         if (passenger.getFirstClass()) {
-            priority += 10; // La prioridad de ser primera clase
+            priority += plane.getNumRows(); // La prioridad de ser primera clase
             if (passenger.getPregnant()) {
                 priority += 20;
             }
@@ -152,6 +151,8 @@ public class Controller {
 
         return priority;
     }
+
+    
 
     public int calculateDisembarkationPriority(Passenger passenger) {
         int chairForRow = plane.getChairsForRow();
@@ -185,57 +186,7 @@ public class Controller {
 
         return priority;
     }
-
-    public String readPassengersArrivalOrder() {
-        File projectDir = new File(System.getProperty("user.dir"));
-        FileReader archivo = null;
-        BufferedReader lector = null;
-
-        String passengersArrivalOrder = "";
-        try {
-            archivo = new FileReader(projectDir + "/data/order.txt");
-            lector = new BufferedReader(archivo);
-
-            String linea = lector.readLine();
-            while (linea != null) {
-                passengersArrivalOrder += linea + "\n";
-                linea = lector.readLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (lector != null)
-                    lector.close();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }
-        return passengersArrivalOrder;
-    }
-
-    public int calculatePassengerArrival(Passenger passenger) {
-        String passengersArrivalOrder = readPassengersArrivalOrder();
-        String[] orderList = passengersArrivalOrder.split("\n");
-        int pos = 0;
-        for (int i = 0; i < orderList.length; i++) {
-            if (orderList[i].equals(passenger.getId())) {
-                pos = i;
-            }
-        }
-        return pos;
-    }
-
-    public int compareArrival(Passenger p1, Passenger p2) {
-        int p1Arrival = calculatePassengerArrival(p1);
-        int p2Arrival = calculatePassengerArrival(p2);
-        if (p1Arrival > p2Arrival) {
-            return 1;
-        } else {
-            return -1;
-        }
-    }
-
+   
     /**
      * intToLetter: Uses the ASCII code to get the value of a letter in the alphabet
      * 
@@ -265,7 +216,7 @@ public class Controller {
         if (plane == null) {
             return "No loaded data";
         } else if (plane.getBoardingArrivalOrder().getHeapSize() == 0) {
-            return "The list was already shown before, please review it";
+            return plane.getArrivalList();
         } else {
             return plane.printListBoardingArrivalOrder();
         }
@@ -276,7 +227,7 @@ public class Controller {
         if (plane == null) {
             return "No loaded data";
         } else if (plane.getDisembarkationOrder().getHeapSize() == 0) {
-            return "The list was already shown before, please review it";
+            return plane.getDesembarkationList();
         } else {
             return plane.printListDisembarkationOrder();
         }

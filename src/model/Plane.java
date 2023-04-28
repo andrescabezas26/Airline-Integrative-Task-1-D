@@ -1,7 +1,5 @@
 package model;
 
-import java.util.PriorityQueue;
-
 import dataStructures.*;
 import exceptions.HeapUnderflow;
 import java.io.BufferedReader;
@@ -20,6 +18,8 @@ public class Plane {
     private HashTable<String, Passenger> passengersInfo;
     private Heap<Integer, String> boardingArrivalOrder;
     private Heap<Integer, String> disembarkationOrder;
+    private String arrivalList;
+    private String desembarkationList;
 
     public Plane(String airline, int numRows, int numFirstClass, int chairsForRow) {
         this.airline = airline;
@@ -28,6 +28,8 @@ public class Plane {
         this.chairsForRow = chairsForRow;
         this.totalChairs = chairsForRow * numRows;
         this.passengersInfo = new HashTable<>(totalChairs);
+        this.arrivalList = "";
+        this.desembarkationList = "";
 
     }
 
@@ -38,19 +40,51 @@ public class Plane {
 
     public String printListBoardingArrivalOrder() {
         String msj = "\n<< BOARDING ARRIVAL LIST >> \n";
-        Couple<Integer, String> cp = null;
-        for (int index = 0; index < boardingArrivalOrder.getArray().length; index++) {
+        Heap<Integer, String> ba = boardingArrivalOrder;
 
+        Couple<Integer, String> cp = null;
+        Couple<Integer, String> cp2 = null;
+        for (int index = 0; index < ba.getArray().length; index += 2) {
+
+            if (index == 29) {
+                break;
+            }
             try {
-                cp = boardingArrivalOrder.heapExtracMax(boardingArrivalOrder.getArray());
+                cp = ba.heapExtracMax(ba.getArray());
+                cp2 = ba.heapExtracMax(ba.getArray());
+
+                /////////////
+
+                if (ba.getArray()[index] != null) {
+                    if (cp.getKey().equals(cp2.getKey())) {
+                        Passenger passenger1 = passengersInfo.getValue(cp.getObject());
+                        Passenger passenger2 = passengersInfo.getValue(cp2.getObject());
+                        if (compareArrival(passenger1, passenger2) == 1) {
+                            msj += "" + (index + 1) + ") " + cp.getObject() + "\t"
+                                    + cp.getKey() + "\n";
+                            msj += "" + (index + 2) + ") " + cp2.getObject() + "\t"
+                                    + cp2.getKey() + "\n";
+                        } else {
+                            msj += "" + (index + 1) + ") " + cp2.getObject() + "\t"
+                                    + cp2.getKey() + "\n";
+                            msj += "" + (index + 2) + ") " + cp.getObject() + "\t"
+                                    + cp.getKey() + "\n";
+                        }
+                    } else {
+                        msj += "" + (index + 1) + ") " + cp.getObject() + "\t"
+                                + cp.getKey() + "\n";
+                        msj += "" + (index + 2) + ") " + cp2.getObject() + "\t"
+                                + cp2.getKey() + "\n";
+                    }
+                }
+
+                //////// 7
             } catch (HeapUnderflow e) {
                 System.out.println("Heap");
             }
-            if (boardingArrivalOrder.getArray()[index] != null) {
-                msj += "" + (index + 1) + ") " + cp.getObject() + "\t"
-                        + cp.getKey() + "\n";
-            }
         }
+
+        setArrivalList(msj);
 
         return msj;
     }
@@ -67,8 +101,8 @@ public class Plane {
                 break;
             }
             try {
-                cp = disembarkationOrder.heapExtracMax(dd.getArray());
-                cp2 = disembarkationOrder.heapExtracMax(dd.getArray());
+                cp = dd.heapExtracMax(dd.getArray());
+                cp2 = dd.heapExtracMax(dd.getArray());
 
                 /////////////
 
@@ -100,6 +134,8 @@ public class Plane {
                 System.out.println("Heap");
             }
         }
+
+        setDesembarkationList(msj);
 
         return msj;
     }
@@ -281,6 +317,35 @@ public class Plane {
      */
     public void setDisembarkationOrder(Heap<Integer, String> disembarkationOrder) {
         this.disembarkationOrder = disembarkationOrder;
+    }
+
+
+    /**
+     * @return String return the arrivalList
+     */
+    public String getArrivalList() {
+        return arrivalList;
+    }
+
+    /**
+     * @param arrivalList the arrivalList to set
+     */
+    public void setArrivalList(String arrivalList) {
+        this.arrivalList = arrivalList;
+    }
+
+    /**
+     * @return String return the desembarkationList
+     */
+    public String getDesembarkationList() {
+        return desembarkationList;
+    }
+
+    /**
+     * @param desembarkationList the desembarkationList to set
+     */
+    public void setDesembarkationList(String desembarkationList) {
+        this.desembarkationList = desembarkationList;
     }
 
 }
