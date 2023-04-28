@@ -4,6 +4,10 @@ import java.util.PriorityQueue;
 
 import dataStructures.*;
 import exceptions.HeapUnderflow;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Plane {
 
@@ -15,6 +19,7 @@ public class Plane {
     private int totalPassengers;
     private HashTable<String, Passenger> passengersInfo;
     private Heap<Integer, String> boardingArrivalOrder;
+    private Heap<Integer, String> disembarkationOrder;
 
     public Plane(String airline, int numRows, int numFirstClass, int chairsForRow) {
         this.airline = airline;
@@ -28,19 +33,128 @@ public class Plane {
 
     public void createBoardingArrivalOrder() {
         this.boardingArrivalOrder = new Heap<>(this.totalPassengers);
+        this.disembarkationOrder = new Heap<>(this.totalPassengers);
     }
 
     public String printListBoardingArrivalOrder() {
         String msj = "\n<< BOARDING ARRIVAL LIST >> \n";
-        setPriority();
+        Couple<Integer, String> cp = null;
         for (int index = 0; index < boardingArrivalOrder.getArray().length; index++) {
+
+            try {
+                cp = boardingArrivalOrder.heapExtracMax(boardingArrivalOrder.getArray());
+            } catch (HeapUnderflow e) {
+                System.out.println("Heap");
+            }
             if (boardingArrivalOrder.getArray()[index] != null) {
-                msj += "" + (index + 1) + ") " + boardingArrivalOrder.getArray()[index].getObject() + "\t"
-                        + boardingArrivalOrder.getArray()[index].getKey() + "\n";
+                msj += "" + (index + 1) + ") " + cp.getObject() + "\t"
+                        + cp.getKey() + "\n";
             }
         }
 
         return msj;
+    }
+
+    public String printListDisembarkationOrder() {
+        String msj = "\n<< DISEMBARKATION LIST >> \n";
+        Heap<Integer, String> dd = disembarkationOrder;
+
+        Couple<Integer, String> cp = null;
+        Couple<Integer, String> cp2 = null;
+        for (int index = 0; index < disembarkationOrder.getArray().length; index += 2) {
+
+            if (index == 29) {
+                break;
+            }
+            try {
+                cp = disembarkationOrder.heapExtracMax(dd.getArray());
+                cp2 = disembarkationOrder.heapExtracMax(dd.getArray());
+
+                /////////////
+
+                if (dd.getArray()[index] != null) {
+                    if (cp.getKey().equals(cp2.getKey())) {
+                        Passenger passenger1 = passengersInfo.getValue(cp.getObject());
+                        Passenger passenger2 = passengersInfo.getValue(cp2.getObject());
+                        if (compareArrival(passenger1, passenger2) == 1) {
+                            msj += "" + (index + 1) + ") " + cp.getObject() + "\t"
+                                    + cp.getKey() + "\n";
+                            msj += "" + (index + 2) + ") " + cp2.getObject() + "\t"
+                                    + cp2.getKey() + "\n";
+                        } else {
+                            msj += "" + (index + 1) + ") " + cp2.getObject() + "\t"
+                                    + cp2.getKey() + "\n";
+                            msj += "" + (index + 2) + ") " + cp.getObject() + "\t"
+                                    + cp.getKey() + "\n";
+                        }
+                    } else {
+                        msj += "" + (index + 1) + ") " + cp.getObject() + "\t"
+                                + cp.getKey() + "\n";
+                        msj += "" + (index + 2) + ") " + cp2.getObject() + "\t"
+                                + cp2.getKey() + "\n";
+                    }
+                }
+
+                //////// 7
+            } catch (HeapUnderflow e) {
+                System.out.println("Heap");
+            }
+        }
+
+        return msj;
+    }
+
+    public int calculatePassengerArrival(Passenger passenger) {
+        String passengersArrivalOrder = readPassengersArrivalOrder();
+        String[] orderList = passengersArrivalOrder.split("\n");
+        int pos = 0;
+        for (int i = 0; i < orderList.length; i++) {
+            if (orderList[i].equals(passenger.getId())) {
+                pos = i;
+            }
+        }
+        return pos;
+    }
+
+    public int compareArrival(Passenger p1, Passenger p2) {
+        int p1Arrival = calculatePassengerArrival(p1);
+        int p2Arrival = calculatePassengerArrival(p2);
+        if (p1Arrival < p2Arrival) {
+            return 1;
+        }
+        if (p1Arrival > p2Arrival) {
+            return -1;
+        }
+
+        return 0;
+    }
+
+    public String readPassengersArrivalOrder() {
+        File projectDir = new File(System.getProperty("user.dir"));
+        FileReader archivo = null;
+        BufferedReader lector = null;
+
+        String passengersArrivalOrder = "";
+        try {
+            archivo = new FileReader(projectDir + "/data/order.txt");
+            lector = new BufferedReader(archivo);
+
+            String linea = lector.readLine();
+            while (linea != null) {
+                passengersArrivalOrder += linea + "\n";
+                linea = lector.readLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (lector != null)
+                    lector.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return passengersArrivalOrder;
     }
 
     /**
@@ -141,12 +255,6 @@ public class Plane {
         this.totalPassengers = totalPassengers;
     }
 
-    public void setPriority() {
-        boardingArrivalOrder.minHeapify(boardingArrivalOrder.getArray(), 0);
-        boardingArrivalOrder.buildMinHeap(boardingArrivalOrder.getArray());
-        boardingArrivalOrder.heapSortMaxToMin(boardingArrivalOrder.getArray());
-    }
-
     /**
      * @return Heap<Integer, String> return the boardingArrivalOrder
      */
@@ -159,6 +267,20 @@ public class Plane {
      */
     public void setBoardingArrivalOrder(Heap<Integer, String> boardingArrivalOrder) {
         this.boardingArrivalOrder = boardingArrivalOrder;
+    }
+
+    /**
+     * @return Heap<Integer,String> return the disembarkationOrder
+     */
+    public Heap<Integer, String> getDisembarkationOrder() {
+        return disembarkationOrder;
+    }
+
+    /**
+     * @param disembarkationOrder the disembarkationOrder to set
+     */
+    public void setDisembarkationOrder(Heap<Integer, String> disembarkationOrder) {
+        this.disembarkationOrder = disembarkationOrder;
     }
 
 }

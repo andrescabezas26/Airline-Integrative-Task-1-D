@@ -38,7 +38,7 @@ public class Main {
                     "1. Load data of passengers\n" +
                             "2. See list of loaded passengers \n" +
                             "3. See Boarding Arrival List\n" +
-                            "4. \n" +
+                            "4. See Disembarkation List\n" +
                             "0. Exit\n");
 
             option = validateIntegerOption();
@@ -68,7 +68,7 @@ public class Main {
                 System.out.println(controller.printListBoarding());
                 break;
             case 4:
-
+                System.out.println(controller.printListDisembarkation());
                 break;
             case 0:
                 System.out.println("Program Finish");

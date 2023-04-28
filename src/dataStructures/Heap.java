@@ -208,14 +208,14 @@ public class Heap<K extends Comparable<K>, T> implements IMonticulo<K, T>, IPrio
 
         try {
 
-            if (heapSize < 1) {
+            if (heapSize < 0) {
                 throw new HeapUnderflow("Heap underflow");
             }
         } catch (HeapUnderflow e) {
             e.printStackTrace();
         }
 
-        Couple<K, T> max = new Couple<>(array[1].getKey(), array[1].getObject());
+        Couple<K, T> max = new Couple<>(array[0].getKey(), array[0].getObject());
         array[0] = array[heapSize - 1];
         --heapSize;
         maxHeapify(array, 0);
@@ -226,16 +226,16 @@ public class Heap<K extends Comparable<K>, T> implements IMonticulo<K, T>, IPrio
     public Couple<K, T> heapExtracMin(Couple<K, T>[] array) {
         try {
 
-            if (heapSize < 1) {
+            if (heapSize < 0) {
                 throw new HeapUnderflow("Heap underflow");
             }
         } catch (HeapUnderflow e) {
             e.printStackTrace();
         }
         Couple<K, T> min = new Couple<>(array[0].getKey(), array[0].getObject());
-        array[0] = array[heapSize];
-        heapSize--;
-        maxHeapify(array, 0);
+        array[0] = array[heapSize - 1];
+        --heapSize;
+        minHeapify(array, 0);
         return min;
     }
 
