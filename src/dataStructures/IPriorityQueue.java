@@ -4,25 +4,25 @@ import exceptions.HeapUnderflow;
 import exceptions.KeyIsBigger;
 import exceptions.KeyIsSmaller;
 
-public interface IPriorityQueue<K extends Comparable<K>, T> {
+public interface IPriorityQueue<K extends Comparable<K>, V> {
 
     // Para colas de prioridad máximas
 
-    public Couple<K, T> heapMaximun(Couple<K, T>[] array);
+    public Node<K, V> heapMaximun(Node<K, V>[] array);
 
-    public Couple<K, T> heapExtracMax(Couple<K, T>[] array) throws HeapUnderflow;
+    public Node<K, V> heapExtracMax(Node<K, V>[] array) throws HeapUnderflow;
 
-    public void heapIncreaseKey(Couple<K, T>[] array, int i, K key) throws KeyIsSmaller;
+    public void heapIncreaseKey(Node<K, V>[] array, int i, K key) throws KeyIsSmaller;
 
-    public void maxHeapInsert(Couple<K, T>[] array, Couple<K, T> couple) throws KeyIsSmaller;
+    public void maxHeapInsert(Node<K, V>[] array, Node<K, V> node) throws KeyIsSmaller;
 
     // Para colas de prioridad mínimas
+    
+    public Node<K, V> heapMinimun(Node<K, V>[] array);
 
-    public Couple<K, T> heapMinimun(Couple<K, T>[] array);
+    public Node<K, V> heapExtracMin(Node<K, V>[] array) throws HeapUnderflow;
 
-    public Couple<K, T> heapExtracMin(Couple<K, T>[] array) throws HeapUnderflow;
+    public void heapDecreaseKey(Node<K, V>[] array, int i, K key) throws KeyIsBigger;
 
-    public void heapDecreaseKey(Couple<K, T>[] array, int i, K key) throws KeyIsBigger;
-
-    public void minHeapInsert(Couple<K, T>[] array, Couple<K, T> couple) throws KeyIsBigger;
+    public void minHeapInsert(Node<K, V>[] array, Node<K, V> node) throws KeyIsBigger;
 }

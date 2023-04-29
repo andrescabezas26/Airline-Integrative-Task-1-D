@@ -25,92 +25,108 @@ public class Passenger {
         this.accumulatedMiles = accumulatedMiles;
     }
 
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getId() {
-        return this.id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public int getRow() {
-        return this.row;
-    }
-
-    public void setRow(int row) {
-        this.row = row;
-    }
-
-    public String getChair() {
-        return this.chair;
-    }
-
-    public void setChair(String chair) {
-        this.chair = chair;
-    }
-
-    public boolean isFirstClass() {
-        return this.firstClass;
-    }
-
-    public boolean getFirstClass() {
-        return this.firstClass;
-    }
-
-    public void setFirstClass(boolean firstClass) {
-        this.firstClass = firstClass;
-    }
-
-    public boolean isPregnant() {
-        return this.pregnant;
-    }
-
-    public boolean getPregnant() {
-        return this.pregnant;
-    }
-
-    public void setPregnant(boolean pregnant) {
-        this.pregnant = pregnant;
-    }
-
-    public boolean isOldAge() {
-        return this.oldAge;
-    }
-
-    public boolean getOldAge() {
-        return this.oldAge;
-    }
-
-    public void setOldAge(boolean oldAge) {
-        this.oldAge = oldAge;
-    }
-
-    /**
-     * @return int return the accumulatedMiles
-     */
-    public int getAccumulatedMiles() {
-        return accumulatedMiles;
-    }
-
-    /**
-     * @param accumulatedMiles the accumulatedMiles to set
-     */
-    public void setAccumulatedMiles(int accumulatedMiles) {
-        this.accumulatedMiles = accumulatedMiles;
-    }
-
     @Override
     public String toString() {
         return "Id: " + id + "\nName: " + name + "\nRow: " + row + "\nChair: " + chair + "\nFirstClass: " + firstClass
                 + "\nPregnant: " + pregnant + "\nOldAge: " + oldAge + "\nAccumulatedMilles: " + accumulatedMiles + "\nPriorityBoarding: " + priorityBoarding;
+    }
+
+    /**
+     * @return String return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return String return the id
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    /**
+     * @return int return the row
+     */
+    public int getRow() {
+        return row;
+    }
+
+    /**
+     * @param row the row to set
+     */
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    /**
+     * @return String return the chair
+     */
+    public String getChair() {
+        return chair;
+    }
+
+    /**
+     * @param chair the chair to set
+     */
+    public void setChair(String chair) {
+        this.chair = chair;
+    }
+
+    /**
+     * @return boolean return the firstClass
+     */
+    public boolean isFirstClass() {
+        return firstClass;
+    }
+
+    /**
+     * @param firstClass the firstClass to set
+     */
+    public void setFirstClass(boolean firstClass) {
+        this.firstClass = firstClass;
+    }
+
+    /**
+     * @return boolean return the pregnant
+     */
+    public boolean isPregnant() {
+        return pregnant;
+    }
+
+    /**
+     * @param pregnant the pregnant to set
+     */
+    public void setPregnant(boolean pregnant) {
+        this.pregnant = pregnant;
+    }
+
+    /**
+     * @return boolean return the oldAge
+     */
+    public boolean isOldAge() {
+        return oldAge;
+    }
+
+    /**
+     * @param oldAge the oldAge to set
+     */
+    public void setOldAge(boolean oldAge) {
+        this.oldAge = oldAge;
     }
 
     /**
@@ -140,6 +156,20 @@ public class Passenger {
      */
     public void setPriorityDisembarking(int priorityDisembarking) {
         this.priorityDisembarking = priorityDisembarking;
+    }
+
+    /**
+     * @return int return the accumulatedMiles
+     */
+    public int getAccumulatedMiles() {
+        return accumulatedMiles;
+    }
+
+    /**
+     * @param accumulatedMiles the accumulatedMiles to set
+     */
+    public void setAccumulatedMiles(int accumulatedMiles) {
+        this.accumulatedMiles = accumulatedMiles;
     }
 
 }

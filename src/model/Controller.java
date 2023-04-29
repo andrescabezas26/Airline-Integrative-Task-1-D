@@ -19,6 +19,11 @@ public class Controller {
 
     }
 
+    /**
+     * Imprime el ToString de todos los pasajeros del Avión
+     * 
+     * @return El toString de los pasajeros del Avión
+     */
     public String printListPassengers() {
 
         String msj = "";
@@ -41,6 +46,12 @@ public class Controller {
 
     }
 
+    /**
+     * Lee el archivo data.txt que contiene la información del avión y de los
+     * pasajeros del mismo y retorna un mensaje con toda la información del avión
+     * 
+     * @return La información del Avión
+     */
     public String loadData() {
         File projectDir = new File(System.getProperty("user.dir"));
 
@@ -81,6 +92,13 @@ public class Controller {
         return msj;
     }
 
+    /**
+     * Este método crea un avión con la información suministrada y devuelve un
+     * mensaje con la información del Avión creado
+     * 
+     * @param planeInfo información del Avión sumistrada por el LoadData
+     * @return mensaje con los datos del Avión
+     */
     public String createPlane(String planeInfo) {
         String[] lines = planeInfo.split("\n");
         int[] numbers = new int[4];
@@ -97,10 +115,16 @@ public class Controller {
         return msj;
     }
 
+    /**
+     * Añade a los pasajeros del Avión a las estructuras de datos (Hastable y Colas
+     * de Prioridad)
+     * 
+     * @param passengersInfo información de los pasajeros sumistrada por LoadData
+     */
     public void addPassengersToDataStructures(String passengersInfo) {
         String[] lines = passengersInfo.split("\n");
         plane.setTotalPassengers(lines.length - 1);
-        plane.createBoardingArrivalOrder();
+        plane.createBoardingAndDisembarkationOrder();
         for (int i = 1; i < lines.length; i++) {
             String[] infoPassenger = lines[i].split("::");
             Passenger passenger = new Passenger(infoPassenger[0], infoPassenger[1], Integer.parseInt(infoPassenger[2]),
@@ -116,15 +140,15 @@ public class Controller {
             ////////////////////////////////////////////////////////
 
             try {
-                plane.getBoardingArrivalOrder().maxHeapInsert(plane.getBoardingArrivalOrder().getArray(),
-                        new Couple<>(passenger.getPriorityBoarding(), passenger.getId()));
+                plane.getBoradingOrder().maxHeapInsert(plane.getBoradingOrder().getArray(),
+                        new Node<>(passenger.getPriorityBoarding(), passenger.getId()));
             } catch (KeyIsSmaller e) {
                 System.out.println("No Sirvio");
             }
 
             try {
                 plane.getDisembarkationOrder().maxHeapInsert(plane.getDisembarkationOrder().getArray(),
-                        new Couple<>(passenger.getPriorityDisembarking(), passenger.getId()));
+                        new Node<>(passenger.getPriorityDisembarking(), passenger.getId()));
             } catch (KeyIsSmaller e) {
                 System.out.println("No Sirvio");
             }
@@ -134,16 +158,23 @@ public class Controller {
 
     }
 
+    /**
+     * Calcula la prioridad de abordaje de un pasajero teniendo en cuenta su fila,
+     * y otros datos extras en caso de ser primera clase
+     * 
+     * @param passenger pasajero al que se le calculará la prioridad
+     * @return prioridad de abordaje del pasajero
+     */
     public int calculateBoardingPriorityNew(Passenger passenger) {
-       
+
         int priority = passenger.getRow();
 
-        if (passenger.getFirstClass()) {
+        if (passenger.isFirstClass()) {
             priority += plane.getNumRows(); // La prioridad de ser primera clase
-            if (passenger.getPregnant()) {
+            if (passenger.isPregnant()) {
                 priority += 20;
             }
-            if (passenger.getOldAge()) {
+            if (passenger.isOldAge()) {
                 priority += 15;
             }
             priority += passenger.getAccumulatedMiles();
@@ -152,8 +183,13 @@ public class Controller {
         return priority;
     }
 
-    
-
+    /**
+     * Calcula la prioridad de desabordaje de un pasajero teniendo en cuenta su fila
+     * y su cercania al pasillo
+     * 
+     * @param passenger pasajero al que se le calculará la prioridad
+     * @return prioridad de desabordaje de un pasajero
+     */
     public int calculateDisembarkationPriority(Passenger passenger) {
         int chairForRow = plane.getChairsForRow();
         int priority = -5 * passenger.getRow();
@@ -175,18 +211,9 @@ public class Controller {
                 priority -= half - passengerChair;
             }
         }
-        /*
-         * for (int i = 0; i < orderList.length; i++) {
-         * if (orderList[i].equals(passenger.getId())) {
-         * priority += plane.getTotalChairs() + i;
-         * break;
-         * }
-         * }
-         */
-
         return priority;
     }
-   
+
     /**
      * intToLetter: Uses the ASCII code to get the value of a letter in the alphabet
      * 
@@ -212,17 +239,27 @@ public class Controller {
         this.plane = plane;
     }
 
+    /**
+     * Imprime la el orden de abordaje de los pasajeros del Avión
+     * 
+     * @return
+     */
     public String printListBoarding() {
         if (plane == null) {
             return "No loaded data";
-        } else if (plane.getBoardingArrivalOrder().getHeapSize() == 0) {
+        } else if (plane.getBoradingOrder().getHeapSize() == 0) {
             return plane.getArrivalList();
         } else {
-            return plane.printListBoardingArrivalOrder();
+            return plane.printListBoardingOrder();
         }
 
     }
 
+    /**
+     * Imprimer el orden de desabordaje de los pasajeros del Avión
+     * 
+     * @return
+     */
     public String printListDisembarkation() {
         if (plane == null) {
             return "No loaded data";

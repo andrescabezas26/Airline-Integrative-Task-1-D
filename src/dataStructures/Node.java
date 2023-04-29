@@ -1,16 +1,18 @@
 package dataStructures;
 
-public class Node<K, V> {
+public class Node<K extends Comparable<K>, V> {
 
     private K key;
     private V value;
 
     private Node<K, V> next;
+    private Node<K, V> previous;
 
     public Node(K key, V value) {
         this.key = key;
         this.value = value;
         this.next = null;
+        this.previous = null;
     }
 
     public K getKey() {
@@ -36,4 +38,19 @@ public class Node<K, V> {
     public void setNext(Node<K, V> next) {
         this.next = next;
     }
+
+    /**
+     * @return Node<K, V> return the previous
+     */
+    public Node<K, V> getPrevious() {
+        return previous;
+    }
+
+    /**
+     * @param previous the previous to set
+     */
+    public void setPrevious(Node<K, V> previous) {
+        this.previous = previous;
+    }
+
 }

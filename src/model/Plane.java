@@ -16,7 +16,7 @@ public class Plane {
     private int totalChairs;
     private int totalPassengers;
     private HashTable<String, Passenger> passengersInfo;
-    private Heap<Integer, String> boardingArrivalOrder;
+    private Heap<Integer, String> boardingOrder;
     private Heap<Integer, String> disembarkationOrder;
     private String arrivalList;
     private String desembarkationList;
@@ -33,48 +33,59 @@ public class Plane {
 
     }
 
-    public void createBoardingArrivalOrder() {
-        this.boardingArrivalOrder = new Heap<>(this.totalPassengers);
+    /**
+     * Crea la cola de prioridad de abordaje y desabordaje del Avión
+     * 
+     * @return
+     */
+    public void createBoardingAndDisembarkationOrder() {
+        this.boardingOrder = new Heap<>(this.totalPassengers);
         this.disembarkationOrder = new Heap<>(this.totalPassengers);
     }
 
-    public String printListBoardingArrivalOrder() {
+    /**
+     * Imprime la lista de Abordaje tomando en cuenta si hay dos prioridades
+     * iguales y poniendo primero al haya llegado primero
+     * 
+     * @return lista de orden de abordaje de los pasajeros
+     */
+    public String printListBoardingOrder() {
         String msj = "\n<< BOARDING ARRIVAL LIST >> \n";
-        Heap<Integer, String> ba = boardingArrivalOrder;
+        Heap<Integer, String> ba = boardingOrder;
 
-        Couple<Integer, String> cp = null;
-        Couple<Integer, String> cp2 = null;
+        Node<Integer, String> ps = null;
+        Node<Integer, String> ps2 = null;
         for (int index = 0; index < ba.getArray().length; index += 2) {
 
             if (index == 29) {
                 break;
             }
             try {
-                cp = ba.heapExtracMax(ba.getArray());
-                cp2 = ba.heapExtracMax(ba.getArray());
+                ps = ba.heapExtracMax(ba.getArray());
+                ps2 = ba.heapExtracMax(ba.getArray());
 
                 /////////////
 
                 if (ba.getArray()[index] != null) {
-                    if (cp.getKey().equals(cp2.getKey())) {
-                        Passenger passenger1 = passengersInfo.getValue(cp.getObject());
-                        Passenger passenger2 = passengersInfo.getValue(cp2.getObject());
+                    if (ps.getKey().equals(ps2.getKey())) {
+                        Passenger passenger1 = passengersInfo.getValue(ps.getValue());
+                        Passenger passenger2 = passengersInfo.getValue(ps2.getValue());
                         if (compareArrival(passenger1, passenger2) == 1) {
-                            msj += "" + (index + 1) + ") " + cp.getObject() + "\t"
-                                    + cp.getKey() + "\n";
-                            msj += "" + (index + 2) + ") " + cp2.getObject() + "\t"
-                                    + cp2.getKey() + "\n";
+                            msj += "" + (index + 1) + ") " + ps.getValue() + "\t"
+                                    + ps.getKey() + "\n";
+                            msj += "" + (index + 2) + ") " + ps2.getValue() + "\t"
+                                    + ps2.getKey() + "\n";
                         } else {
-                            msj += "" + (index + 1) + ") " + cp2.getObject() + "\t"
-                                    + cp2.getKey() + "\n";
-                            msj += "" + (index + 2) + ") " + cp.getObject() + "\t"
-                                    + cp.getKey() + "\n";
+                            msj += "" + (index + 1) + ") " + ps2.getValue() + "\t"
+                                    + ps2.getKey() + "\n";
+                            msj += "" + (index + 2) + ") " + ps.getValue() + "\t"
+                                    + ps.getKey() + "\n";
                         }
                     } else {
-                        msj += "" + (index + 1) + ") " + cp.getObject() + "\t"
-                                + cp.getKey() + "\n";
-                        msj += "" + (index + 2) + ") " + cp2.getObject() + "\t"
-                                + cp2.getKey() + "\n";
+                        msj += "" + (index + 1) + ") " + ps.getValue() + "\t"
+                                + ps.getKey() + "\n";
+                        msj += "" + (index + 2) + ") " + ps2.getValue() + "\t"
+                                + ps2.getKey() + "\n";
                     }
                 }
 
@@ -88,44 +99,49 @@ public class Plane {
 
         return msj;
     }
-
+    /**
+     * Imprime la lista de Desbordaje tomando en cuenta si hay dos prioridades
+     * iguales y poniendo primero al haya llegado primero
+     * 
+     * @return lista de orden de desabordaje de los pasajeros
+     */
     public String printListDisembarkationOrder() {
         String msj = "\n<< DISEMBARKATION LIST >> \n";
         Heap<Integer, String> dd = disembarkationOrder;
 
-        Couple<Integer, String> cp = null;
-        Couple<Integer, String> cp2 = null;
+        Node<Integer, String> ps = null;
+        Node<Integer, String> ps2 = null;
         for (int index = 0; index < disembarkationOrder.getArray().length; index += 2) {
 
             if (index == 29) {
                 break;
             }
             try {
-                cp = dd.heapExtracMax(dd.getArray());
-                cp2 = dd.heapExtracMax(dd.getArray());
+                ps = dd.heapExtracMax(dd.getArray());
+                ps2 = dd.heapExtracMax(dd.getArray());
 
                 /////////////
 
                 if (dd.getArray()[index] != null) {
-                    if (cp.getKey().equals(cp2.getKey())) {
-                        Passenger passenger1 = passengersInfo.getValue(cp.getObject());
-                        Passenger passenger2 = passengersInfo.getValue(cp2.getObject());
+                    if (ps.getKey().equals(ps2.getKey())) {
+                        Passenger passenger1 = passengersInfo.getValue(ps.getValue());
+                        Passenger passenger2 = passengersInfo.getValue(ps2.getValue());
                         if (compareArrival(passenger1, passenger2) == 1) {
-                            msj += "" + (index + 1) + ") " + cp.getObject() + "\t"
-                                    + cp.getKey() + "\n";
-                            msj += "" + (index + 2) + ") " + cp2.getObject() + "\t"
-                                    + cp2.getKey() + "\n";
+                            msj += "" + (index + 1) + ") " + ps.getValue() + "\t"
+                                    + ps.getKey() + "\n";
+                            msj += "" + (index + 2) + ") " + ps2.getValue() + "\t"
+                                    + ps2.getKey() + "\n";
                         } else {
-                            msj += "" + (index + 1) + ") " + cp2.getObject() + "\t"
-                                    + cp2.getKey() + "\n";
-                            msj += "" + (index + 2) + ") " + cp.getObject() + "\t"
-                                    + cp.getKey() + "\n";
+                            msj += "" + (index + 1) + ") " + ps2.getValue() + "\t"
+                                    + ps2.getKey() + "\n";
+                            msj += "" + (index + 2) + ") " + ps.getValue() + "\t"
+                                    + ps.getKey() + "\n";
                         }
                     } else {
-                        msj += "" + (index + 1) + ") " + cp.getObject() + "\t"
-                                + cp.getKey() + "\n";
-                        msj += "" + (index + 2) + ") " + cp2.getObject() + "\t"
-                                + cp2.getKey() + "\n";
+                        msj += "" + (index + 1) + ") " + ps.getValue() + "\t"
+                                + ps.getKey() + "\n";
+                        msj += "" + (index + 2) + ") " + ps2.getValue() + "\t"
+                                + ps2.getKey() + "\n";
                     }
                 }
 
@@ -139,7 +155,11 @@ public class Plane {
 
         return msj;
     }
-
+    /**
+     * Calcula el número de llegada de un pasajero al vuelo
+     * @param passenger pasajero que será calculado
+     * @return número de llegada del pasajero al avión
+     */
     public int calculatePassengerArrival(Passenger passenger) {
         String passengersArrivalOrder = readPassengersArrivalOrder();
         String[] orderList = passengersArrivalOrder.split("\n");
@@ -151,7 +171,12 @@ public class Plane {
         }
         return pos;
     }
-
+    /**
+     * Compara la llegada de dos pasajeros del avión y devuelve un valor dependiendo de quien haya llegado primero
+     * @param p1 pasajero 1
+     * @param p2 pasajero 2
+     * @return 1 si el pasajero 1 llegó primero que el 2, y -1 si es lo contrario.
+     */
     public int compareArrival(Passenger p1, Passenger p2) {
         int p1Arrival = calculatePassengerArrival(p1);
         int p2Arrival = calculatePassengerArrival(p2);
@@ -164,7 +189,10 @@ public class Plane {
 
         return 0;
     }
-
+    /**
+     * Lee el orden de llegada de los pasajeros del archivo order.txt y retorna un String con el orden
+     * @return orden de llegada de los pasajeros
+     */
     public String readPassengersArrivalOrder() {
         File projectDir = new File(System.getProperty("user.dir"));
         FileReader archivo = null;
@@ -292,17 +320,17 @@ public class Plane {
     }
 
     /**
-     * @return Heap<Integer, String> return the boardingArrivalOrder
+     * @return Heap<Integer, String> return the boardingOrder
      */
-    public Heap<Integer, String> getBoardingArrivalOrder() {
-        return boardingArrivalOrder;
+    public Heap<Integer, String> getBoradingOrder() {
+        return boardingOrder;
     }
 
     /**
-     * @param boardingArrivalOrder the boardingArrivalOrder to set
+     * @param boardingOrder the boardingOrder to set
      */
-    public void setBoardingArrivalOrder(Heap<Integer, String> boardingArrivalOrder) {
-        this.boardingArrivalOrder = boardingArrivalOrder;
+    public void setBoradingOrder(Heap<Integer, String> boardingOrder) {
+        this.boardingOrder = boardingOrder;
     }
 
     /**
@@ -318,7 +346,6 @@ public class Plane {
     public void setDisembarkationOrder(Heap<Integer, String> disembarkationOrder) {
         this.disembarkationOrder = disembarkationOrder;
     }
-
 
     /**
      * @return String return the arrivalList

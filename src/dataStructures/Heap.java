@@ -1,25 +1,23 @@
 package dataStructures;
 
-import java.util.ArrayList;
-
 import exceptions.*;
 
-public class Heap<K extends Comparable<K>, T> implements IMonticulo<K, T>, IPriorityQueue<K, T> {
+public class Heap<K extends Comparable<K>, V> implements IHeap<K, V>, IPriorityQueue<K, V> {
 
     /*
      * La pareja se inicia así:
-     * Couple<Integer, Cat> couple1 = new Couple<>(firstCat.getAge(), firstCat)
+     * Node<Integer, Cat> node1 = new Node<>(firstCat.getAge(), firstCat)
      * 
      * El arreglo genérico se inicia así:
-     * Couple<Integer, Cat>[] array = new Couple[10]
-     * array = (Couple<Integer, Cat>[]) array
+     * Node<Integer, Cat>[] array = new Node[10]
+     * array = (Node<Integer, Cat>[]) array
      * 
      * Para asiganr valores en el arreglo:
-     * array[0] = couple1
+     * array[0] = node1
      * 
      */
 
-    private Couple<K, T>[] array;
+    private Node<K, V>[] array;
     private int heapSize;
 
     /**
@@ -29,7 +27,7 @@ public class Heap<K extends Comparable<K>, T> implements IMonticulo<K, T>, IPrio
      * @param array
      */
     public Heap(int sizeArray) {
-        array = (Couple<K, T>[]) new Couple[sizeArray];
+        array = (Node<K, V>[]) new Node[sizeArray];
         int heSize = 0;
         for (int i = 0; i < array.length; i++) {
             if (array[i] != null) {
@@ -40,10 +38,10 @@ public class Heap<K extends Comparable<K>, T> implements IMonticulo<K, T>, IPrio
     }
 
     /**
-     * Hijo izquierdo(Flamini)
+     * Devuelve el índice del hijo izquierdo de un nodo i.
      * 
-     * @param i
-     * @return
+     * @param i Índice del nodo.
+     * @return Índice del hijo izquierdo de i.
      */
     public int getLeft(int i) {
         if (i == 0) {
@@ -53,10 +51,10 @@ public class Heap<K extends Comparable<K>, T> implements IMonticulo<K, T>, IPrio
     }
 
     /**
-     * Hijo derecho(Oscar)
+     * Devuelve el índice del hijo derecho de un nodo i.
      * 
-     * @param i
-     * @return
+     * @param i Índice del nodo.
+     * @return Índice del hijo derecho de i.
      */
     public int getRight(int i) {
         if (i == 0) {
@@ -65,6 +63,12 @@ public class Heap<K extends Comparable<K>, T> implements IMonticulo<K, T>, IPrio
         return 2 * i + 1;
     }
 
+    /**
+     * Devuelve el índice del padre de un nodo i.
+     * 
+     * @param i Índice del nodo.
+     * @return Índice del padre de i.
+     */
     public int getParent(int i) {
         if (i == 0) {
             return 0;
@@ -72,9 +76,16 @@ public class Heap<K extends Comparable<K>, T> implements IMonticulo<K, T>, IPrio
         return Math.floorDiv(i, 2);
     }
 
-    // Revisar documentación en la interfaz
+    /**
+     * Implementación del método maxHeapify de la interfaz IHeap. Acomoda los nodos
+     * en el arreglo genérico para que se cumpla la propiedad de max heap. Recibe el
+     * arreglo y el índice del nodo a acomodar.
+     * 
+     * @param array Arreglo genérico de nodos.
+     * @param i     Índice del nodo a acomodar.
+     */
     @Override
-    public void maxHeapify(Couple<K, T>[] array, int i) {
+    public void maxHeapify(Node<K, V>[] array, int i) {
 
         int left = getLeft(i);
         int right = getRight(i);
@@ -93,9 +104,16 @@ public class Heap<K extends Comparable<K>, T> implements IMonticulo<K, T>, IPrio
         }
     }
 
-    // Revisar documentación en la interfaz
+    /**
+     * Implementación del método minHeapify de la interfaz IHeap. Acomoda los nodos
+     * en el arreglo genérico para que se cumpla la propiedad de min heap.Recibe el
+     * arreglo y el índice del nodo a acomodar.
+     * 
+     * @param array Arreglo genérico de nodos.
+     * @param i     Índice del nodo a acomodar.
+     */
     @Override
-    public void minHeapify(Couple<K, T>[] array, int i) {
+    public void minHeapify(Node<K, V>[] array, int i) {
 
         int left = getLeft(i);
         int right = getRight(i);
@@ -116,7 +134,7 @@ public class Heap<K extends Comparable<K>, T> implements IMonticulo<K, T>, IPrio
 
     // Revisar documentación en la interfaz
     @Override
-    public void buildMaxHeap(Couple<K, T>[] array) {
+    public void buildMaxHeap(Node<K, V>[] array) {
 
         for (int i = Math.floorDiv(array.length, 2); i >= 0; i--) {
             maxHeapify(array, i);
@@ -125,7 +143,7 @@ public class Heap<K extends Comparable<K>, T> implements IMonticulo<K, T>, IPrio
 
     // Revisar documentación en la interfaz
     @Override
-    public void buildMinHeap(Couple<K, T>[] array) {
+    public void buildMinHeap(Node<K, V>[] array) {
 
         for (int i = Math.floorDiv(array.length, 2); i >= 0; i--) {
             minHeapify(array, i);
@@ -134,7 +152,7 @@ public class Heap<K extends Comparable<K>, T> implements IMonticulo<K, T>, IPrio
 
     // Revisar documentación en la interfaz
     @Override
-    public void heapSortMinToMax(Couple<K, T>[] array) {
+    public void heapSortMinToMax(Node<K, V>[] array) {
         for (int i = heapSize - 1; i >= 1; i--) {
             swap(0, i);
             heapSize--;
@@ -144,7 +162,7 @@ public class Heap<K extends Comparable<K>, T> implements IMonticulo<K, T>, IPrio
 
     // Revisar documentación en la interfaz
     @Override
-    public void heapSortMaxToMin(Couple<K, T>[] array) {
+    public void heapSortMaxToMin(Node<K, V>[] array) {
         for (int i = heapSize - 1; i >= 1; i--) {
             swap(0, i);
             heapSize--;
@@ -153,39 +171,29 @@ public class Heap<K extends Comparable<K>, T> implements IMonticulo<K, T>, IPrio
     }
 
     /**
-     * Intercambia la posición entre dos elementos dados
+     * Intercambia los nodos en los índices i y j del arreglo genérico.
      * 
-     * @param index1
-     * @param index2
+     * @param i Índice del primer nodo a intercambiar.
+     * @param j Índice del segundo nodo a intercambiar.
      */
     public void swap(int index1, int index2) {
-        Couple<K, T> temp = new Couple<K, T>(array[index1].getKey(), array[index1].getObject());
-        Couple<K, T> temp2 = new Couple<K, T>(array[index2].getKey(), array[index2].getObject());
+        Node<K, V> temp = new Node<K, V>(array[index1].getKey(), array[index1].getValue());
+        Node<K, V> temp2 = new Node<K, V>(array[index2].getKey(), array[index2].getValue());
         array[index1] = temp2;
         array[index2] = temp;
     }
 
-    public String toString() {
-        String msj = "[ ";
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] != null) {
-                msj += array[i].getKey() + " ";
-            }
-        }
-        return msj + "]";
-    }
-
     /**
-     * @return Couple<K, T>[] return the array
+     * @return Node<K, V>[] return the array
      */
-    public Couple<K, T>[] getArray() {
+    public Node<K, V>[] getArray() {
         return array;
     }
 
     /**
      * @param array the array to set
      */
-    public void setArray(Couple<K, T>[] array) {
+    public void setArray(Node<K, V>[] array) {
         this.array = array;
     }
 
@@ -202,9 +210,9 @@ public class Heap<K extends Comparable<K>, T> implements IMonticulo<K, T>, IPrio
     public void setHeapSize(int heapSize) {
         this.heapSize = heapSize;
     }
-
+    
     @Override
-    public Couple<K, T> heapExtracMax(Couple<K, T>[] array) throws HeapUnderflow {
+    public Node<K, V> heapExtracMax(Node<K, V>[] array) throws HeapUnderflow {
 
         try {
 
@@ -215,7 +223,7 @@ public class Heap<K extends Comparable<K>, T> implements IMonticulo<K, T>, IPrio
             e.printStackTrace();
         }
 
-        Couple<K, T> max = new Couple<>(array[0].getKey(), array[0].getObject());
+        Node<K, V> max = new Node<>(array[0].getKey(), array[0].getValue());
         array[0] = array[heapSize - 1];
         --heapSize;
         maxHeapify(array, 0);
@@ -223,7 +231,7 @@ public class Heap<K extends Comparable<K>, T> implements IMonticulo<K, T>, IPrio
     }
 
     @Override
-    public Couple<K, T> heapExtracMin(Couple<K, T>[] array) {
+    public Node<K, V> heapExtracMin(Node<K, V>[] array) {
         try {
 
             if (heapSize < 0) {
@@ -232,7 +240,7 @@ public class Heap<K extends Comparable<K>, T> implements IMonticulo<K, T>, IPrio
         } catch (HeapUnderflow e) {
             e.printStackTrace();
         }
-        Couple<K, T> min = new Couple<>(array[0].getKey(), array[0].getObject());
+        Node<K, V> min = new Node<>(array[0].getKey(), array[0].getValue());
         array[0] = array[heapSize - 1];
         --heapSize;
         minHeapify(array, 0);
@@ -240,7 +248,7 @@ public class Heap<K extends Comparable<K>, T> implements IMonticulo<K, T>, IPrio
     }
 
     @Override
-    public void heapIncreaseKey(Couple<K, T>[] array, int i, K key) throws KeyIsSmaller {
+    public void heapIncreaseKey(Node<K, V>[] array, int i, K key) throws KeyIsSmaller {
 
         try {
             if (key.compareTo(array[i].getKey()) < 0) {
@@ -261,7 +269,7 @@ public class Heap<K extends Comparable<K>, T> implements IMonticulo<K, T>, IPrio
     }
 
     @Override
-    public void heapDecreaseKey(Couple<K, T>[] array, int i, K key) throws KeyIsBigger {
+    public void heapDecreaseKey(Node<K, V>[] array, int i, K key) throws KeyIsBigger {
         try {
             if (key.compareTo(array[i].getKey()) > 0) {
                 throw new KeyIsBigger("New key is bigger than current key");
@@ -278,30 +286,30 @@ public class Heap<K extends Comparable<K>, T> implements IMonticulo<K, T>, IPrio
     }
 
     @Override
-    public Couple<K, T> heapMaximun(Couple<K, T>[] array) {
+    public Node<K, V> heapMaximun(Node<K, V>[] array) {
         return array[0];
     }
 
     @Override
-    public Couple<K, T> heapMinimun(Couple<K, T>[] array) {
+    public Node<K, V> heapMinimun(Node<K, V>[] array) {
         return array[0];
     }
 
     @Override
-    public void maxHeapInsert(Couple<K, T>[] array, Couple<K, T> couple) throws KeyIsSmaller {
+    public void maxHeapInsert(Node<K, V>[] array, Node<K, V> node) throws KeyIsSmaller {
 
-        array[heapSize] = couple;
+        array[heapSize] = node;
         heapSize++;
 
-        heapIncreaseKey(array, heapSize - 1, couple.getKey());
+        heapIncreaseKey(array, heapSize - 1, node.getKey());
 
     }
 
     @Override
-    public void minHeapInsert(Couple<K, T>[] array, Couple<K, T> couple) throws KeyIsBigger {
+    public void minHeapInsert(Node<K, V>[] array, Node<K, V> node) throws KeyIsBigger {
         heapSize++;
-        array[heapSize] = couple;
-        heapDecreaseKey(array, heapSize, couple.getKey());
+        array[heapSize] = node;
+        heapDecreaseKey(array, heapSize, node.getKey());
 
     }
 
