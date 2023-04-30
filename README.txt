@@ -17,3 +17,5 @@ Implementation notes:
 - The txt files can be modified to change the specifications of the plane, passenger information, and arrival order.
 
 - Detailed information about the problem solution can be found in the project documentation. 
+
+- Test: We use the jUnit library
