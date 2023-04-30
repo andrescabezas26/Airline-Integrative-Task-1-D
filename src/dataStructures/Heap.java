@@ -215,69 +215,61 @@ public class Heap<K extends Comparable<K>, V> implements IHeap<K, V>, IPriorityQ
     public Node<K, V> heapExtracMax(Node<K, V>[] array) throws HeapUnderflow {
 
         if (heapSize <= 0) {
-                throw new HeapUnderflow("Heap underflow");
+            throw new HeapUnderflow("Heap underflow");
         } else {
-                Node<K, V> max = new Node<>(array[0].getKey(), array[0].getValue());
-                array[0] = array[heapSize - 1];
-                --heapSize;
-                maxHeapify(array, 0);
-                return max;
+            Node<K, V> max = new Node<>(array[0].getKey(), array[0].getValue());
+            array[0] = array[heapSize - 1];
+            --heapSize;
+            maxHeapify(array, 0);
+            return max;
 
         }
-
-       
 
     }
 
     @Override
     public Node<K, V> heapExtracMin(Node<K, V>[] array) throws HeapUnderflow {
         if (heapSize <= 0) {
-                throw new HeapUnderflow("Heap underflow");
-        }else{
-        Node<K, V> min = new Node<>(array[0].getKey(), array[0].getValue());
-        array[0] = array[heapSize - 1];
-        array[heapSize-1] = null;
-        --heapSize;
-        minHeapify(array, 0);
-        return min;
+            throw new HeapUnderflow("Heap underflow");
+        } else {
+            Node<K, V> min = new Node<>(array[0].getKey(), array[0].getValue());
+            array[0] = array[heapSize - 1];
+            array[heapSize - 1] = null;
+            --heapSize;
+            minHeapify(array, 0);
+            return min;
         }
     }
 
     @Override
     public void heapIncreaseKey(Node<K, V>[] array, int i, K key) throws KeyIsSmaller {
 
-        try {
-            if (key.compareTo(array[i].getKey()) < 0) {
-                throw new KeyIsSmaller("New key is smaller than current key");
+        if (key.compareTo(array[i].getKey()) < 0) {
+            throw new KeyIsSmaller("New key is smaller than current key");
+        } else {
+            array[i].setKey(key);
+            while (i > 0 && array[getParent(i)].getKey().compareTo(array[i].getKey()) < 0) {
+                swap(i, getParent(i));
+                i = getParent(i);
+
             }
-        } catch (KeyIsSmaller e) {
-            e.printStackTrace();
-        }
-
-        array[i].setKey(key);
-
-        while (i > 0 && array[getParent(i)].getKey().compareTo(array[i].getKey()) < 0) {
-            swap(i, getParent(i));
-            i = getParent(i);
-
         }
 
     }
 
     @Override
     public void heapDecreaseKey(Node<K, V>[] array, int i, K key) throws KeyIsBigger {
-        try {
-            if (key.compareTo(array[i].getKey()) > 0) {
-                throw new KeyIsBigger("New key is bigger than current key");
+
+        if (key.compareTo(array[i].getKey()) > 0) {
+            throw new KeyIsBigger("New key is bigger than current key");
+        } else {
+            array[i].setKey(key);
+            while (i > 0 && array[getParent(i)].getKey().compareTo(array[i].getKey()) > 0) {
+                swap(i, getParent(i));
+                i = getParent(i);
             }
-        } catch (KeyIsBigger e) {
-            e.printStackTrace();
         }
-        array[i].setKey(key);
-        while (i > 0 && array[getParent(i)].getKey().compareTo(array[i].getKey()) > 0) {
-            swap(i, getParent(i));
-            i = getParent(i);
-        }
+
     }
 
     @Override
@@ -301,7 +293,6 @@ public class Heap<K extends Comparable<K>, V> implements IHeap<K, V>, IPriorityQ
 
         array[heapSize] = node;
         heapSize++;
-
         heapIncreaseKey(array, heapSize - 1, node.getKey());
 
     }
@@ -311,7 +302,7 @@ public class Heap<K extends Comparable<K>, V> implements IHeap<K, V>, IPriorityQ
 
         array[heapSize] = node;
         heapSize++;
-        heapDecreaseKey(array, heapSize, node.getKey());
+        heapDecreaseKey(array, heapSize - 1, node.getKey());
 
     }
 

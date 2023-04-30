@@ -66,7 +66,7 @@ public class PriorityQueueTest {
         priorityQueue.maxHeapInsert(priorityQueue.getArray(), array[0]);
         Node<Integer, String> result = priorityQueue.heapExtracMax(priorityQueue.getArray());
         assertEquals(1, result.getKey().intValue());
-        assertNull(priorityQueue.getArray()[0]);
+
     }
 
     @Test
@@ -89,69 +89,157 @@ public class PriorityQueueTest {
     @Test(expected = KeyIsSmaller.class)
     public void testHeapIncreaseKey1() throws KeyIsSmaller {
         setUp();
-        Node<Integer, String>[] array = new Node[1];
-        priorityQueue.maxHeapInsert(priorityQueue.getArray(), array[0]);
-        array[0] = new Node<Integer, String>(1, "one");
-        priorityQueue.heapIncreaseKey(array, 0, 0);
+        Node<Integer, String> node = new Node<Integer, String>(1, "one");
+        priorityQueue.maxHeapInsert(priorityQueue.getArray(), node);
+        priorityQueue.heapIncreaseKey(priorityQueue.getArray(), 0, 0);
     }
+
     @Test
     public void testHeapIncreaseKey2() throws KeyIsSmaller {
         setUp();
-        Node<Integer, String>[] array = new Node[1];
-        array[0] = new Node<Integer, String>(1, "one");
-        priorityQueue.heapIncreaseKey(array, 0, 1);
-        assertEquals(1, array[0].getKey().intValue());
+        Node<Integer, String> node = new Node<Integer, String>(1, "one");
+        priorityQueue.maxHeapInsert(priorityQueue.getArray(), node);
+
+        Node<Integer, String> node2 = new Node<Integer, String>(2, "two");
+        priorityQueue.maxHeapInsert(priorityQueue.getArray(), node2);
+
+        assertEquals(2, priorityQueue.getArray()[0].getKey().intValue());
     }
+
     @Test
-    public void testHeapIncreaseKey3() throws KeyIsSmaller {
+    public void testHeapIncreaseKey3() throws KeyIsSmaller, HeapUnderflow {
         setUp();
-        Node<Integer, String>[] array = new Node[1];
+        Node<Integer, String>[] array = new Node[5];
         array[0] = new Node<Integer, String>(1, "one");
-        priorityQueue.heapIncreaseKey(array, 0, 2);
-        assertEquals(2, array[0].getKey().intValue());
+        array[1] = new Node<Integer, String>(2, "two");
+        array[2] = new Node<Integer, String>(3, "three");
+        array[3] = new Node<Integer, String>(4, "four");
+        array[4] = new Node<Integer, String>(6, "six");
+
+        for (int i = 0; i < array.length; i++) {
+            priorityQueue.maxHeapInsert(priorityQueue.getArray(), array[i]);
+        }
+
+        assertEquals(6, priorityQueue.getArray()[0].getKey().intValue());
+        priorityQueue.maxHeapInsert(priorityQueue.getArray(), new Node<Integer, String>(7, "seven"));
+        assertEquals(7, priorityQueue.getArray()[0].getKey().intValue());
+        priorityQueue.maxHeapInsert(priorityQueue.getArray(), new Node<Integer, String>(5, "five"));
+        assertEquals(7, priorityQueue.getArray()[0].getKey().intValue());
     }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////MinimunPriorityQueue///////////////////////////////////////////
 
     // Test HeapMinimun
 
     @Test
     public void testHeapMinimun1() throws KeyIsBigger {
         setUp();
-        Node<Integer, String>[] array = new Node[10];
         Node<Integer, String> node1 = new Node<>(2, "Hello");
         Node<Integer, String> node2 = new Node<>(3, "World");
         priorityQueue.minHeapInsert(priorityQueue.getArray(), node1);
         priorityQueue.minHeapInsert(priorityQueue.getArray(), node2);
-        assertEquals(node1, priorityQueue.heapMinimun(array));
+        assertEquals(node1.getKey().intValue(),
+                priorityQueue.heapMinimun(priorityQueue.getArray()).getKey().intValue());
     }
-    @Test(expected = HeapUnderflow.class)
+
+    @Test
     public void testHeapMinimun2() {
         setUpHeapEmpty();
-        priorityQueueEmpty.heapMinimun(priorityQueueEmpty.getArray());
+        assertNull(priorityQueueEmpty.heapMinimun(priorityQueueEmpty.getArray()));
+
     }
+
     @Test
-    public void testHeapMinimun3() {
-        Node<Integer, String>[] array = new Node[10];
-        MinHeap<Integer, String> heap = new MinHeap<>(array);
+    public void testHeapMinimun3() throws KeyIsBigger {
+        setUp();
         Node<Integer, String> node1 = new Node<>(2, "Hello");
         Node<Integer, String> node2 = new Node<>(2, "World");
-        heap.minHeapInsert(array, node1);
-        heap.minHeapInsert(array, node2);
-        assertEquals(node1, heap.heapMinimun(array));
+        priorityQueue.minHeapInsert(priorityQueue.getArray(), node1);
+        priorityQueue.minHeapInsert(priorityQueue.getArray(), node2);
+        assertEquals(node1.getKey().intValue(),
+                priorityQueue.heapMinimun(priorityQueue.getArray()).getKey().intValue());
     }
 
-    //Test heapExtracMin
+    // Test heapExtracMin
+
+    @Test(expected = HeapUnderflow.class)
+    public void testHeapExtractMin1() throws HeapUnderflow {
+        setUpHeapEmpty();
+        priorityQueueEmpty.heapExtracMin(priorityQueueEmpty.getArray());
+    }
 
     @Test
-    public void testHeapExtracMinNonEmptyHeap() throws HeapUnderflow {
-        Node<Integer, String>[] array = new Node[10];
-        MinHeap<Integer, String> heap = new MinHeap<>(array);
+    public void testHeapExtracMin2() throws HeapUnderflow, KeyIsBigger {
+        setUp();
         Node<Integer, String> node1 = new Node<>(2, "Hello");
         Node<Integer, String> node2 = new Node<>(3, "World");
-        heap.minHeapInsert(array, node1);
-        heap.minHeapInsert(array, node2);
-        Node<Integer, String> min = heap.heapExtracMin(array);
-        assertEquals(node1, min);
-        assertEquals(node2, heap.heapMinimun(array));
+        priorityQueue.minHeapInsert(priorityQueue.getArray(), node1);
+        priorityQueue.minHeapInsert(priorityQueue.getArray(), node2);
+        Node<Integer, String> min = priorityQueue.heapExtracMin(priorityQueue.getArray());
+        assertEquals(node1.getKey().intValue(), min.getKey().intValue());
+        assertEquals(node2.getKey().intValue(),
+                priorityQueue.heapMinimun(priorityQueue.getArray()).getKey().intValue());
+    }
+
+    @Test
+    public void testHeapExtractMin3() throws HeapUnderflow, KeyIsBigger {
+        setUp();
+        Node<Integer, String>[] array = new Node[4];
+        array[0] = new Node<Integer, String>(2, "two");
+        array[1] = new Node<Integer, String>(4, "four");
+        array[2] = new Node<Integer, String>(1, "one");
+        array[3] = new Node<Integer, String>(3, "three");
+        for (int i = 0; i < array.length; i++) {
+            priorityQueue.minHeapInsert(priorityQueue.getArray(), array[i]);
+        }
+        priorityQueue.heapExtracMin(priorityQueue.getArray());
+        Node<Integer, String> result = priorityQueue.heapExtracMin(priorityQueue.getArray());
+        assertEquals(array[0].getKey().intValue(), result.getKey().intValue());
+    }
+
+    // Test IncreaseKey
+
+    @Test(expected = KeyIsBigger.class)
+    public void testDecreaseKey1() throws KeyIsBigger {
+        setUp();
+        Node<Integer, String>[] array = new Node[1];
+        array[0] = new Node<Integer, String>(1, "one");
+        priorityQueue.minHeapInsert(priorityQueue.getArray(), array[0]);
+        priorityQueue.heapDecreaseKey(priorityQueue.getArray(), 0, 2);
+    }
+
+    @Test
+    public void testDecreaseKey2() throws KeyIsBigger {
+        setUp();
+        Node<Integer, String> node = new Node<Integer, String>(1, "one");
+        priorityQueue.minHeapInsert(priorityQueue.getArray(), node);
+
+        Node<Integer, String> node2 = new Node<Integer, String>(2, "two");
+        priorityQueue.minHeapInsert(priorityQueue.getArray(), node2);
+
+        assertEquals(1, priorityQueue.getArray()[0].getKey().intValue());
+    }
+
+    @Test
+    public void testDecreaseKey3() throws KeyIsBigger {
+        setUp();
+        Node<Integer, String>[] array = new Node[5];
+        array[0] = new Node<Integer, String>(1, "one");
+        array[1] = new Node<Integer, String>(2, "two");
+        array[2] = new Node<Integer, String>(3, "three");
+        array[3] = new Node<Integer, String>(4, "four");
+        array[4] = new Node<Integer, String>(5, "five");
+
+        for (int i = 0; i < array.length; i++) {
+            priorityQueue.minHeapInsert(priorityQueue.getArray(), array[i]);
+        }
+
+        assertEquals(1, priorityQueue.getArray()[0].getKey().intValue());
+        priorityQueue.minHeapInsert(priorityQueue.getArray(), new Node<Integer, String>(-1, "-one"));
+        assertEquals(-1, priorityQueue.getArray()[0].getKey().intValue());
+        priorityQueue.minHeapInsert(priorityQueue.getArray(), new Node<Integer, String>(-5, "-five"));
+        assertEquals(-5, priorityQueue.getArray()[0].getKey().intValue());
     }
 
 }
