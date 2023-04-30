@@ -1,6 +1,6 @@
 package dataStructures;
 
-public class HashTable<K extends Comparable<K>, V> implements IHashTable<K,V> {
+public class HashTable<K extends Comparable<K>, V> implements IHashTable<K, V> {
 
   private int sizeTable;
   private Node<K, V>[] table;
