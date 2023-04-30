@@ -57,7 +57,7 @@ public class Plane {
         Node<Integer, String> ps2 = null;
         for (int index = 0; index < ba.getArray().length; index += 2) {
 
-            if (index == 29) {
+            if (index == numRows-1) {
                 break;
             }
             try {
@@ -113,7 +113,7 @@ public class Plane {
         Node<Integer, String> ps2 = null;
         for (int index = 0; index < disembarkationOrder.getArray().length; index += 2) {
 
-            if (index == 29) {
+            if (index == numRows - 1) {
                 break;
             }
             try {
