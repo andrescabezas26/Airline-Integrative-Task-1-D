@@ -1,0 +1,37 @@
+Avianca
+10::Número de filas del avión
+3::Numero de filas de primera clase
+6::Número de sillas por fila
+Id::Nombre::Fila::Silla::PrimeraClase::Embarazada::TerceraEdad::MillasAcumuladas
+String::String::int::String::boolean::boolean::boolean::int
+Passengers
+KLY225::Juan Camacho::1::A::true::false::false::48
+DRZ456::Emma Wilson::4::B::false::false::false::73
+BJT900::Noah Davis::1::C::true::false::false::62
+NPS857::Olivia Hernandez::1::D::true::false::false::22
+GTH352::Ethan Taylor::1::E::true::false::false::91
+XMQ304::Avery Johnson::1::F::true::true::false::75
+KBN462::Sophia Wilson::2::A::true::false::false::80
+HVM358::William Brown::2::B::true::false::true::11
+LQD779::Chloe Davis::2::C::true::false::false::28
+DWZ831::Jacob Hernandez::2::D::true::false::false::85
+VXU305::Madison Garcia::2::E::true::false::false::68
+OQM156::Lucas Wilson::2::F::true::false::false::90
+YTF663::Alexander Brown::3::A::true::false::false::25
+HXN623::Ava Davis::3::B::false::true::false::81
+VYG320::Isabella Hernandez::3::C::true::false::false::51
+WUD615::Nicholas Johnson::3::D::true::true::false::32
+BLR729::Emily Wilson::3::E::true::false::false::10
+JYU573::Ethan Davis::3::F::true::false::false::64
+WMP944::Emma Garcia::4::A::false::false::false::36
+VDE891::Kanye West::1::B::true::false::false::70
+OKL306::Samantha Wilson::4::C::false::false::false::46
+MQS964::Lily Johnson::6::D::false::false::false::85
+WUP289::Noah Hernandez::7::E::false::false::false::67
+FXD286::Abigail Davis::8::F::false::false::false::29
+GTP512::Sophia Garcia::8::A::false::false::true::6
+OJF479::Jacob Brown::5::B::false::false::false::26
+WRL783::Avery Hernandez::10::C::false::false::false::50
+HFE396::Andres Mesa::5::D::false::true::false::69
+IWM491::Chloe Johnson::8::E::false::false::false::91
+QKP953::Nicholas Davis::6::F::false::false::false::76
