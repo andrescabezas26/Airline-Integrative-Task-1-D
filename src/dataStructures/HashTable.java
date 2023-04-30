@@ -1,6 +1,6 @@
 package dataStructures;
 
-public class HashTable<K extends Comparable<K>, V> {
+public class HashTable<K extends Comparable<K>, V> implements IHashTable<K,V> {
 
   private int sizeTable;
   private Node<K, V>[] table;
@@ -17,22 +17,9 @@ public class HashTable<K extends Comparable<K>, V> {
    * @param key la clave del elemento que se quiere agregar, obtener o eliminar
    * @return el índice de la tabla de hash
    */
-  private int hash(K key) {
+  @Override
+  public int hash(K key) {
     return Math.abs(key.hashCode()) % sizeTable;
-  }
-
-  /**
-   * Función hash específica para claves de tipo String.
-   * 
-   * @param key la clave del elemento que se quiere agregar, obtener o eliminar
-   * @return el índice de la tabla de hash generado por la función hash de String
-   */
-  public int hashString(K key) {
-    int hashValue = 0;
-    for (int i = 0; i < ((String) key).length(); i++) {
-      hashValue = (hashValue * 31 + ((String) key).charAt(i)) % sizeTable;
-    }
-    return hashValue;
   }
 
   /**
@@ -41,6 +28,7 @@ public class HashTable<K extends Comparable<K>, V> {
    * @param key   la clave del nuevo elemento a agregar
    * @param value el valor del nuevo elemento a agregar
    */
+  @Override
   public void add(K key, V value) {
     int index = hash(key);
 
@@ -67,6 +55,7 @@ public class HashTable<K extends Comparable<K>, V> {
    * @return el valor del elemento con la clave dada, o null si no se encuentra en
    *         la tabla de hash
    */
+  @Override
   public V getValue(K key) {
     int index = hash(key);
 
@@ -89,6 +78,7 @@ public class HashTable<K extends Comparable<K>, V> {
    * 
    * @param key la clave del elemento que se quiere eliminar
    */
+  @Override
   public void remove(K key) {
     int index = hash(key);
 

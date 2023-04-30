@@ -1,4 +1,5 @@
 package dataStructures;
+
 /**
  * Una implementación simple de una estructura de datos de cola.
  *
@@ -19,6 +20,7 @@ public class Queue<K extends Comparable<K>, V> implements IQueue<K, V> {
         this.first = null;
         this.last = null;
     }
+
     /**
      * Devuelve true si esta cola está vacía, false en caso contrario.
      *
@@ -31,6 +33,7 @@ public class Queue<K extends Comparable<K>, V> implements IQueue<K, V> {
         }
         return false;
     }
+
     /**
      * Recupera y elimina la cabeza de esta cola, o devuelve null si esta
      * cola está vacía.
@@ -39,15 +42,14 @@ public class Queue<K extends Comparable<K>, V> implements IQueue<K, V> {
      */
     @Override
     public V poll() {
-        V value=null;
+        V value = null;
         if (!isEmpty()) {
-            value=first.getValue();
-            if (last != null) {
-                first=first.getNext();
-            }
+            value = first.getValue();
+            first = first.getNext();
         }
         return value;
     }
+
     /**
      * Recupera, pero no elimina, la cabeza de esta cola, o devuelve
      * null si esta cola está vacía.
@@ -56,8 +58,13 @@ public class Queue<K extends Comparable<K>, V> implements IQueue<K, V> {
      */
     @Override
     public V peek() {
+
+        if (isEmpty()) {
+            return null;
+        }
         return first.getValue();
     }
+
     /**
      * Agrega el nodo especificado al final de esta cola.
      *
@@ -67,14 +74,15 @@ public class Queue<K extends Comparable<K>, V> implements IQueue<K, V> {
     public void offer(Node<K, V> node) {
         if (!isEmpty()) {
             if (last == null) {
-                last=node;
+                last = node;
+                first.setNext(last);
             } else {
                 last.setNext(node);
-                last=node;
+                last = node;
             }
         } else {
             first = node;
-            first.setNext(last);
+            last = node;
         }
     }
 }

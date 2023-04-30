@@ -210,41 +210,37 @@ public class Heap<K extends Comparable<K>, V> implements IHeap<K, V>, IPriorityQ
     public void setHeapSize(int heapSize) {
         this.heapSize = heapSize;
     }
-    
+
     @Override
     public Node<K, V> heapExtracMax(Node<K, V>[] array) throws HeapUnderflow {
 
-        try {
-
-            if (heapSize < 0) {
+        if (heapSize <= 0) {
                 throw new HeapUnderflow("Heap underflow");
-            }
-        } catch (HeapUnderflow e) {
-            e.printStackTrace();
+        } else {
+                Node<K, V> max = new Node<>(array[0].getKey(), array[0].getValue());
+                array[0] = array[heapSize - 1];
+                --heapSize;
+                maxHeapify(array, 0);
+                return max;
+
         }
 
-        Node<K, V> max = new Node<>(array[0].getKey(), array[0].getValue());
-        array[0] = array[heapSize - 1];
-        --heapSize;
-        maxHeapify(array, 0);
-        return max;
+       
+
     }
 
     @Override
-    public Node<K, V> heapExtracMin(Node<K, V>[] array) {
-        try {
-
-            if (heapSize < 0) {
+    public Node<K, V> heapExtracMin(Node<K, V>[] array) throws HeapUnderflow {
+        if (heapSize <= 0) {
                 throw new HeapUnderflow("Heap underflow");
-            }
-        } catch (HeapUnderflow e) {
-            e.printStackTrace();
-        }
+        }else{
         Node<K, V> min = new Node<>(array[0].getKey(), array[0].getValue());
         array[0] = array[heapSize - 1];
+        array[heapSize-1] = null;
         --heapSize;
         minHeapify(array, 0);
         return min;
+        }
     }
 
     @Override
@@ -277,7 +273,6 @@ public class Heap<K extends Comparable<K>, V> implements IHeap<K, V>, IPriorityQ
         } catch (KeyIsBigger e) {
             e.printStackTrace();
         }
-
         array[i].setKey(key);
         while (i > 0 && array[getParent(i)].getKey().compareTo(array[i].getKey()) > 0) {
             swap(i, getParent(i));
@@ -287,11 +282,17 @@ public class Heap<K extends Comparable<K>, V> implements IHeap<K, V>, IPriorityQ
 
     @Override
     public Node<K, V> heapMaximun(Node<K, V>[] array) {
+        if (heapSize == 0) {
+            return null;
+        }
         return array[0];
     }
 
     @Override
     public Node<K, V> heapMinimun(Node<K, V>[] array) {
+        if (heapSize == 0) {
+            return null;
+        }
         return array[0];
     }
 
@@ -307,8 +308,9 @@ public class Heap<K extends Comparable<K>, V> implements IHeap<K, V>, IPriorityQ
 
     @Override
     public void minHeapInsert(Node<K, V>[] array, Node<K, V> node) throws KeyIsBigger {
-        heapSize++;
+
         array[heapSize] = node;
+        heapSize++;
         heapDecreaseKey(array, heapSize, node.getKey());
 
     }
