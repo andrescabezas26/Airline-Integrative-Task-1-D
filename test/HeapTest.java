@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import dataStructures.*;
+import exceptions.KeyIsBigger;
 import exceptions.KeyIsSmaller;
 
 public class HeapTest {
@@ -18,7 +19,7 @@ public class HeapTest {
     }
 
     public void setUpSmall() {
-        smallHeap = new Heap<>(4);
+        smallHeap = new Heap<>(5);
     }
 
     // Test GeftLeft
@@ -161,42 +162,48 @@ public class HeapTest {
         array[4] = new Node<>(1, "one");
         array[5] = new Node<>(6, "six");
         for (int i = 0; i < array.length; i++) {
-            bigHeap.maxHeapInsert(bigHeap.getArray(), array[i]);
+            bigHeap.getArray()[i]=array[i];
+            bigHeap.setHeapSize(bigHeap.getHeapSize()+1);
+            
         }
+        bigHeap.maxHeapify(bigHeap.getArray(), 0);
         bigHeap.buildMaxHeap(bigHeap.getArray());
-        assertEquals(8, bigHeap.getArray()[0].getKey().intValue());
-        assertEquals(6, bigHeap.getArray()[1].getKey().intValue());
-        assertEquals(5, bigHeap.getArray()[2].getKey().intValue());
-        assertEquals(4, bigHeap.getArray()[3].getKey().intValue());
-        assertEquals(1, bigHeap.getArray()[4].getKey().intValue());
-        assertEquals(2, bigHeap.getArray()[5].getKey().intValue());
+        assertEquals(8, bigHeap.getArray()[0].getKey().intValue());//8
+        assertEquals(6, bigHeap.getArray()[1].getKey().intValue());//6
+        assertEquals(4, bigHeap.getArray()[2].getKey().intValue());//5
+        assertEquals(5, bigHeap.getArray()[3].getKey().intValue());//4
+        assertEquals(1, bigHeap.getArray()[4].getKey().intValue());//1
+        assertEquals(2, bigHeap.getArray()[5].getKey().intValue());//2
     }
 
     @Test
     public void testBuildMaxHeap2() {
-        setUpSmall();
-        smallHeap.getArray()[0]= new Node<>(5, "five");
-        smallHeap.buildMaxHeap(smallHeap.getArray());
-        assertEquals(5, smallHeap.getArray()[0].getKey().intValue());
+        setUpBig();
+        bigHeap.getArray()[0]= new Node<>(5, "five");
+        bigHeap.buildMaxHeap(bigHeap.getArray());
+        assertEquals(5, bigHeap.getArray()[0].getKey().intValue());
     }
 
     @Test
-    public void testBuildMaxHeap3() throws KeyIsSmaller {
-        setUpSmall();
+    public void testBuildMaxHeap3() throws KeyIsSmaller, KeyIsBigger {
+        setUpBig();
         Node<Integer, String>[] array = new Node[4];
         array[0] = new Node<>(1, "one");
         array[1] = new Node<>(2, "two");
         array[2] = new Node<>(3, "three");
         array[3] = new Node<>(4, "four");
         for (int i = 0; i < array.length; i++) {
-            smallHeap.maxHeapInsert(smallHeap.getArray(), array[i]);
+            bigHeap.getArray()[i]=array[i];
+            bigHeap.setHeapSize(bigHeap.getHeapSize()+1);
+            
         }
-        smallHeap.buildMaxHeap(smallHeap.getArray());
+        bigHeap.maxHeapify(bigHeap.getArray(), 4);
+        bigHeap.buildMaxHeap(bigHeap.getArray());
        //Mal Hecho creo revisar
-        assertEquals(4, smallHeap.getArray()[0].getKey().intValue());
-        assertEquals(2, smallHeap.getArray()[1].getKey().intValue());
-        assertEquals(3, smallHeap.getArray()[2].getKey().intValue());
-        assertEquals(1, smallHeap.getArray()[3].getKey().intValue());
+        assertEquals(4, bigHeap.getArray()[0].getKey().intValue());
+        assertEquals(3, bigHeap.getArray()[1].getKey().intValue());
+        assertEquals(1, bigHeap.getArray()[2].getKey().intValue());
+        assertEquals(2, bigHeap.getArray()[3].getKey().intValue());
     }
 
 }
